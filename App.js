@@ -68,11 +68,11 @@ const MainNavi = createAppContainer(AddNavi)
 export default class App extends React.Component {
 
   _storeData = async () => {
-    await AsyncStorage.setItem('@todolove8:state', JSON.stringify(this.state))
+    await AsyncStorage.setItem('@todolove9:state', JSON.stringify(this.state))
   }
 
   _getData = async () => {
-    const mystate = await AsyncStorage.getItem("@todolove8:state")
+    const mystate = await AsyncStorage.getItem("@todolove9:state")
     if (mystate !== null) {
       this.setState(JSON.parse(mystate))
       // console.log(mystate)
@@ -147,21 +147,32 @@ export default class App extends React.Component {
   }
   _overTimer = () =>{
     const overchecktime = new Date()
-    const plus_score =0 
-    const minus_score = 0 
+    let plus_score =0 
+    let minus_score = 0 
+    let success_item = 0
+    let fail_item = 0
+    const update_todos = [...this.state.todos]
+
     for (const i of this.state.todos) {
-      if (i.deadline + 60000 <= overchecktime.getTime()  ){
+      if (i.deadline + 30000 <= overchecktime.getTime()  ){
         if (i.iscomplete === true) {
           console.log("얘는 성공한 애입니다", i)
           delete_success_index = this.state.todos.findIndex((element)=>{ return element.deadline === i.deadline})
+          plus_score = plus_score + 2
+          success_item = success_item + 1
+          update_todos.splice(delete_success_index,1)
 
-          
         }
         else { //86400000이 하루 기준 초
           console.log("얘는 실패한 애입니다", i.title)
           delete_fail_index = this.state.todos.findIndex((element) => { return element.deadline === i.deadline })
+          minus_score = minus_score +2
+          fail_item = fail_item +1
+          update_todos.splice(delete_success_index, 1)
 
         }
+        alert("성공한 " + (success_item).toString() +"개의 Todo,"+ "실패한 "+ (fail_item).toString() +"개의 Todo 가 삭제되었습니다." )
+        this.setState({todos: update_todos, MainScore : this.state.MainScore - minus_score }, this._storeData)
       }
      
     }
@@ -182,7 +193,7 @@ export default class App extends React.Component {
 
         const reverseTodo = [...this.state.todos]
         const prevSuccess = [...this.state.success_todos]
-        if ((nowtime.getTime() - item.deadline ) <= 60000) { //24시간을 환산하면 86400000
+        if ((nowtime.getTime() - item.deadline ) <= 30000) { //24시간을 환산하면 86400000
           
           reverseTodo[index].iscomplete = !reverseTodo[index].iscomplete
           
