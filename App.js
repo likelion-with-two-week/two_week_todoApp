@@ -68,11 +68,11 @@ const MainNavi = createAppContainer(AddNavi)
 export default class App extends React.Component {
 
   _storeData = async () => {
-    await AsyncStorage.setItem('@todolove9:state', JSON.stringify(this.state))
+    await AsyncStorage.setItem('@todolove11:state', JSON.stringify(this.state))
   }
 
   _getData = async () => {
-    const mystate = await AsyncStorage.getItem("@todolove9:state")
+    const mystate = await AsyncStorage.getItem("@todolove11:state")
     if (mystate !== null) {
       this.setState(JSON.parse(mystate))
       // console.log(mystate)
@@ -87,13 +87,12 @@ export default class App extends React.Component {
   }
 
 
-
-
   constructor(props){
     super(props)
     this.state={
       ////아래 Reacy는 splash때문에 넣어준거임
-
+      inputname :'',
+      username :'',
       MainScore : 50,  //Todo List의 check를 해서 score를 누적시켜서 우리가 하고자하는 사진과의 crop을 설정한다
 
       imageUri:'',  //우리가 main 얼굴로 넣을 image를 선정한다
@@ -294,9 +293,21 @@ export default class App extends React.Component {
       this.setState({ hate_imageUri: result2.uri }, this._storeData);
     }
   };
+  _changename = (value) =>{
+    this.setState({inputname:value})
+  }
+  _saveName = () =>{
+    if (this.state.inputname !== ''){
+      this.setState({username : this.state.inputname},this._storeData)
+    }else{
+      alert('빈칸없이 입력해주세요!')
+    }
+    if (this.state.imageUri ==="" || this.state.hate_imageUri === ""){
+      alert('빈값없이 입력해주세요!')
+    }
+  }
   render(){
-    ///////////////////////
-    // if (!this.state.isReady) {
+    /////////this.state.isReady) {
     //   return (
     //     <View style={{ flex: 1 }}>
     //       <Image
@@ -326,6 +337,10 @@ export default class App extends React.Component {
             mainImageUri : this.state.imageUri,
             hateImageUri : this.state.hate_imageUri,
             selectHateImage: this._hateselectImage,
+            myusername : this.state.username,
+            changeNameMethod: this._changename,
+            inputname : this.state.inputname,
+            saveName : this._saveName,
             }}
             />
       </SafeAreaView>

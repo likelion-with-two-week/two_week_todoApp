@@ -9,6 +9,7 @@ export default class MainScreen extends React.Component {
     constructor(props){
         super(props)
         this.state = {
+            inputname : '',
             fontLoaded: false,
         };
     }
@@ -28,7 +29,7 @@ export default class MainScreen extends React.Component {
     return (
         // console.log('TodoItem compo 안에 넘어오는지 확인', name),
         <SafeAreaView style = {styles.mainscreen_background}>
-            {this.props.screenProps.hateImageUri && this.props.screenProps.mainImageUri? 
+            {this.props.screenProps.hateImageUri && this.props.screenProps.mainImageUri && this.props.screenProps.myusername? 
             (
             <SafeAreaView style = {styles.mainscreen_background}>
             <ImageBackground source={require('../assets/Mainpage/MainPage그림.png')} style={styles.image_background}>
@@ -113,6 +114,35 @@ export default class MainScreen extends React.Component {
                         }
 
                 </SafeAreaView>
+                        <View style={styles.photopic_middle}>
+                           
+
+
+                                <View style={styles.continue_box}>
+                                    {this.state.fontLoaded ?
+                    
+                                        (<View style={styles.inputname_container}>
+
+                                        <TextInput 
+                                            placeholder = {'사용자이름을 입력해주세요'}
+                                            value={this.props.screenProps.inputname}
+                                            onChangeText={this.props.screenProps.changeNameMethod}
+                                            maxLength = {10}
+                                            style = {styles.myname_input}/>
+                                        <TouchableOpacity
+                                            onPress = {()=>{
+                                                this.props.screenProps.saveName()
+                                            }
+                                            }>
+                                            <Text style={styles.continue_style}>NEXT</Text>
+                                        </TouchableOpacity>
+                                        </View>
+                                        )
+                                        : null
+                                    }
+                                </View>
+                            
+                        </View>
 
                 <SafeAreaView style={styles.firstpic_hate}>
 
@@ -135,19 +165,7 @@ export default class MainScreen extends React.Component {
                         }
 
                 </SafeAreaView>
-                <View style={styles.photopic_bottom}>
-                    <TouchableOpacity 
-                    onPress ={()=>{
-                    }
-                    }>
-                        <View style = {styles.continue_box}>
-                            {this.state.fontLoaded? 
-                                <Text style={styles.continue_style}>계속하기 ></Text>
-                                : null
-                            }
-                        </View>
-                    </TouchableOpacity>
-                </View>
+               
             </View>
             
             )
@@ -224,7 +242,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
     },
-    photopic_bottom:{
+    photopic_middle:{
         backgroundColor:'#454552',
         flex:1,
         alignItems:'center',
@@ -255,8 +273,20 @@ const styles = StyleSheet.create({
         width:width*0.35,
         borderRadius:200,
         marginBottom: height * 0.05,
-
+        paddingHorizontal:10,
     },
+    inputname_container:{
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'space-between',
+        width:width*0.9,
+    },
+    myname_input:{
+        color:'white',
+        fontFamily: 'DungGeunMo',
+        fontSize: 20,
+        width:width*0.6,
+    }
     //#e85a71 
     //#4ea1d3 
 });
