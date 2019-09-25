@@ -68,11 +68,11 @@ const MainNavi = createAppContainer(AddNavi)
 export default class App extends React.Component {
 
   _storeData = async () => {
-    await AsyncStorage.setItem('@todolove6:state', JSON.stringify(this.state))
+    await AsyncStorage.setItem('@todolove7:state', JSON.stringify(this.state))
   }
 
   _getData = async () => {
-    const mystate = await AsyncStorage.getItem("@todolove6:state")
+    const mystate = await AsyncStorage.getItem("@todolove7:state")
     if (mystate !== null) {
       this.setState(JSON.parse(mystate))
       // console.log(mystate)
@@ -83,6 +83,7 @@ export default class App extends React.Component {
   async componentDidMount() {
     await this._getData()
     // this._checkTime()
+    this._overTimer()
   }
 
 
@@ -144,7 +145,11 @@ export default class App extends React.Component {
     }
    
   }
-
+  _overTimer = () =>{
+    for (const i of this.state.todos) {
+      console.log(i)
+    }
+  }
   //TodoList를 만들어주는 method 주 용도는 TodoItem component에 넘겨주기 위함이다
   _makeTodoList = ({index,item}) =>{
     return(
@@ -161,11 +166,11 @@ export default class App extends React.Component {
 
         const reverseTodo = [...this.state.todos]
         const prevSuccess = [...this.state.success_todos]
-        if ((nowtime.getTime() - item.deadline ) <= 86400000) { //24시간을 환산하면 86400000
+        if ((nowtime.getTime() - item.deadline ) <= 60000) { //24시간을 환산하면 86400000
           
           reverseTodo[index].iscomplete = !reverseTodo[index].iscomplete
           
-          alert("                             호감도가 +2 되었습니다    ");
+          alert("축하합니다! 호감도 +3  (리스트는 등록후 24시간 뒤에 삭제됩니다) ");
           // Alert.alert(
           //   '오늘의 ToDo를 했나요?',
           //   '',
@@ -196,7 +201,7 @@ export default class App extends React.Component {
  
         } else { 
 
-          alert("24시간이 지나 실패했습니다")
+          alert("24시간이 지나 실패했습니다! 호감도 -2")
           this.setState({ MainScore: this.state.MainScore - 2 }, this._storeData) 
           reverseTodo.splice(index, 1);
         }

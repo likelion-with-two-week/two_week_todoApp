@@ -18,7 +18,14 @@ export default class TodoItem extends React.Component {
                         <MaterialCommunityIcons name="delete-empty" size={30} />
 
                     </TouchableOpacity> */}
-                    <Text style= {styles.todo_time}>{this.props.starthour}:{this.props.startminutes}→</Text>
+
+                    {this.props.isComplete ?
+                        <Text style={styles.todo_time_complete}>{this.props.starthour}:{this.props.startminutes}→</Text>
+
+                        :
+                        <Text style={styles.todo_time}>{this.props.starthour}:{this.props.startminutes}→</Text>
+
+                    }
                 </SafeAreaView>
 
                 <SafeAreaView style={styles.todoList_textBox}>
@@ -31,17 +38,28 @@ export default class TodoItem extends React.Component {
                     }
 
                 </SafeAreaView>
-                <TouchableOpacity
-                    onPress={()=>{
-                        this.props.changeComplete()
-                        // this.props.navigation.navigate("Todocomplete")
-                        // setTimeout(this.props.avigation.navigate("TodoListScreen"), 3000)
-                    }
-                    }
+
+                {this.props.isComplete?
+                    <TouchableOpacity>
+                        <MaterialCommunityIcons name={'checkbox-intermediate'} size={50} color="#454552" />
+                    </TouchableOpacity>
+                    :
+                    <TouchableOpacity
+                        onPress={() => {
+                            this.props.changeComplete()
+                            // this.props.navigation.navigate("Todocomplete")
+                            // setTimeout(this.props.avigation.navigate("TodoListScreen"), 3000)
+                        }
+                        }
 
                     >
-                    <MaterialCommunityIcons name={this.props.isComplete ? 'checkbox-intermediate' : 'checkbox-blank-outline'} size={50} color="#454552" />
-                </TouchableOpacity>
+                        <MaterialCommunityIcons name={'checkbox-blank-outline'} size={50} color="#454552" />
+                    </TouchableOpacity>
+                    
+                    
+                    
+                }
+               
                 
             </SafeAreaView>
         )
@@ -73,9 +91,18 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontFamily: 'DungGeunMo',
     },
+    todo_time_complete:{
+        textDecorationLine: 'line-through',
+        textDecorationStyle: 'solid',
+        fontSize: 30,
+        fontFamily: 'DungGeunMo',
+        color: 'grey',
+    },
     todoList_textBox:{
         overflow:"scroll",
         width:width*0.6,
+        marginLeft:width*0.03,
+        marginRight: width * 0.02
     }
 
 })

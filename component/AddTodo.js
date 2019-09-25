@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     //직접적으로  Text 입력창의 스타일
     todo_inputBox: {
         paddingLeft: width * 0.03,
+        paddingRight: width * 0.02,
 
         height: height/8,
         width: width*0.7,
