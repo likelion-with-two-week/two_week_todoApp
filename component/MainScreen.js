@@ -18,42 +18,103 @@ export default class MainScreen extends React.Component {
         
             await Font.loadAsync({
                 'DungGeunMo': require('../assets/fonts/DungGeunMo.ttf'),
+                'Jalnan':require('../assets/fonts/Jalnan.ttf'),
             });
         this.setState({ fontLoaded: true });
       
     }
  
-
-
+    
+    
     render(){
-    return (
-        // console.log('TodoItem compo 안에 넘어오는지 확인', name),
-        <SafeAreaView style = {styles.mainscreen_background}>
-            {this.props.screenProps.hateImageUri && this.props.screenProps.mainImageUri && this.props.screenProps.myusername? 
-            (
-            <SafeAreaView style = {styles.mainscreen_background}>
-            <ImageBackground source={require('../assets/Mainpage/MainPage그림.png')} style={styles.image_background}>
+        console.log(this.props.screenProps.random_flag)
+        const temp_flag = this.props.screenProps.random_flag
+        let param_tag 
+
+        if(temp_flag===1){
+            param_tag = (<ImageBackground resizeMode='contain' source={require('../assets/Mainpage/50퍼1.png')} style={styles.image_background}>
+                <View style={styles.mention_area}>
+                    <Text style={styles.random_mention}>{this.props.screenProps.normal_mention[Math.floor(Math.random() * 3)]}</Text>
+                </View>
 
                 <SafeAreaView style={styles.character_area}>
 
-                    <TouchableOpacity
-                        onPress = {() => {
-                            this.props.screenProps.selectImage()
-                           
-                        }}>
-                        { this.props.screenProps.mainImageUri ? 
-                            <Image source={{ uri: this.props.screenProps.mainImageUri }} style={styles.cropimage_style}/> : 
-                            <MaterialCommunityIcons name={"account-box-outline"} size={100} color="white" />}
-                    
-                    </TouchableOpacity>
-                {/* { this.state.fontLoaded ? 
+
+                    <View style={styles.inputimage_area}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                this.props.screenProps.selectImage()
+
+                            }}>
+                            {this.props.screenProps.mainImageUri ?
+                                <Image source={{ uri: this.props.screenProps.mainImageUri }} resizeMode='contain' style={styles.cropimage_style} /> :
+                                <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
+
+                        </TouchableOpacity>
+                    </View>
+                    {/* { this.state.fontLoaded ? 
                             <Text style={{ color:"white", fontSize: 50, fontFamily: 'DungGeunMo', }}> Main Page가 될 예정입니다.</Text>
                     : null
                 } */}
 
                 </SafeAreaView>
-            </ImageBackground>
+            </ImageBackground>)
+        }else if(temp_flag ===2){
+            param_tag = (<ImageBackground resizeMode='contain' source={require('../assets/Mainpage/50퍼2.png')} style={styles.image_background}>
+                <View style={styles.mention_area}>
+                    <Text style={styles.random_mention}>{this.props.screenProps.normal_mention[Math.floor(Math.random() * 3)]}</Text>
+                </View>
 
+                <SafeAreaView style={styles.character_area}>
+
+
+                    <View style={styles.inputimage_area}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                this.props.screenProps.selectImage()
+
+                            }}>
+                            {this.props.screenProps.mainImageUri ?
+                                <Image source={{ uri: this.props.screenProps.mainImageUri }} resizeMode='contain' style={styles.cropimage_style} /> :
+                                <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
+
+                        </TouchableOpacity>
+                    </View>
+                </SafeAreaView>
+            </ImageBackground>)
+        }else{
+            param_tag =  (<ImageBackground resizeMode='contain' source={require('../assets/Mainpage/50퍼3.png')} style={styles.image_background}>
+                <View style={styles.mention_area}>
+                    <Text style={styles.random_mention}>{this.props.screenProps.normal_mention[Math.floor(Math.random() * 3)]}</Text>
+                </View>
+
+                <SafeAreaView style={styles.character_area}>
+
+
+                    <View style={styles.inputimage_area}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                this.props.screenProps.selectImage()
+
+                            }}>
+                            {this.props.screenProps.mainImageUri ?
+                                <Image source={{ uri: this.props.screenProps.mainImageUri }} resizeMode='contain' style={styles.cropimage_style} /> :
+                                <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
+
+                        </TouchableOpacity>
+                    </View>
+                </SafeAreaView>
+            </ImageBackground>)
+        }
+
+    return (
+        
+        // console.log('TodoItem compo 안에 넘어오는지 확인', name),
+        <SafeAreaView style = {styles.mainscreen_background}>
+            {this.props.screenProps.hateImageUri && this.props.screenProps.mainImageUri && this.props.screenProps.myusername? 
+            (
+            <SafeAreaView style = {styles.mainscreen_background_image_container}>
+                        {param_tag}
             <SafeAreaView style = {styles.mainpagebottom}>
                 <SafeAreaView>
                     <TouchableOpacity
@@ -80,7 +141,7 @@ export default class MainScreen extends React.Component {
                             this.props.navigation.navigate('AddScreen')
                         }}>
 
-                    <AntDesign name="plussquareo" size={35} color="white" />
+                    <AntDesign name="plussquareo" size={width*0.09} color="white" />
                     </TouchableOpacity>
                 </SafeAreaView>
             </SafeAreaView> 
@@ -186,9 +247,11 @@ export default class MainScreen extends React.Component {
 const styles = StyleSheet.create({
     mainscreen_background:{
         flex:1,
-        // borderWidth:10,
-        // borderColor:'skyblue',
     },
+    mainscreen_background_image_container:{
+      flex:1,
+    },
+ 
     image_background:{
         flex:1,
     },
@@ -196,35 +259,40 @@ const styles = StyleSheet.create({
     character_area: {
         flex:1,
         alignItems: 'center',
-        justifyContent: 'center',
         // borderWidth: 5,
         // borderColor: 'blue',
+        justifyContent:'flex-end',
+
     },
     cropimage_style:{
-        width: 180, 
-        height: 180, 
+        // borderWidth:5,
+        // borderColor:'blue',
+        width: height * 0.2, 
+        height: height*0.2, 
         borderRadius: 400 / 2,
-        marginTop:160,
-        marginLeft:10,
+    },
+    inputimage_area:{
+        marginLeft:width*0.02,
+        marginBottom:height*0.31,
     },
     mainpagebottom:{
-        height:70,
+        height:height*0.1,
         backgroundColor:"#454552",
         flexDirection: 'row',
         justifyContent:'space-between',
         alignItems:'center',
-        paddingHorizontal:15,
+        paddingHorizontal:width*0.05,
     },
     mainbottomtext_container:{
         flexDirection:'row',
     },
     mainbottom_lefttext:{
-        fontSize: 50, 
+        fontSize: width*0.12, 
         fontFamily: 'DungGeunMo', 
         color:'#e85a71',
     },
     mainbottom_righttext:{
-        fontSize: 50,
+        fontSize: width * 0.12,
         fontFamily: 'DungGeunMo', 
         color:'white',
     },
@@ -287,6 +355,19 @@ const styles = StyleSheet.create({
         fontSize: width*0.05,
         width:width*0.6,
         marginLeft: width*0.03
-    }
+    },
 
+    ///////////////////////대사 부분
+    random_mention:{
+        color:'black',
+        fontSize:50,
+    },
+    mention_area:{
+        borderWidth:10,
+        borderColor:'black',
+        marginTop:height*0.15,
+        width: width*0.55,
+        marginLeft:width*0.225,
+        alignItems:'center'
+    }
 });

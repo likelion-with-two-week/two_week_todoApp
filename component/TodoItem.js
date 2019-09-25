@@ -18,7 +18,7 @@ export default class TodoItem extends React.Component {
                         <MaterialCommunityIcons name="delete-empty" size={30} />
 
                     </TouchableOpacity> */}
-
+                
                     {this.props.isComplete ?
                         <Text style={styles.todo_time_complete}>{this.props.starthour}:{this.props.startminutes}→</Text>
 
@@ -41,7 +41,7 @@ export default class TodoItem extends React.Component {
 
                 {this.props.isComplete?
                     <TouchableOpacity>
-                        <MaterialCommunityIcons name={'checkbox-intermediate'} size={50} color="#454552" />
+                        <MaterialCommunityIcons name={'checkbox-intermediate'} size={width*0.13} color="#454552" />
                     </TouchableOpacity>
                     :
                     <TouchableOpacity
@@ -53,7 +53,7 @@ export default class TodoItem extends React.Component {
                         }
 
                     >
-                        <MaterialCommunityIcons name={'checkbox-blank-outline'} size={50} color="#454552" />
+                        <MaterialCommunityIcons name={'checkbox-blank-outline'} size={width * 0.13} color="#454552" />
                     </TouchableOpacity>
                     
                     
@@ -73,28 +73,28 @@ const styles = StyleSheet.create({
         backgroundColor:'#fff',
         alignItems:'center',
         justifyContent:'space-between',
-        marginBottom:10,
-        padding:10,
+        marginBottom:height*0.03,
+        padding:width*0.035,
     },
     todoItemText:{
-        fontSize:30,
+        fontSize:width*0.07,
         fontFamily:'DungGeunMo',
     },
     todoItemText_complete:{
         textDecorationLine: 'line-through', 
         textDecorationStyle: 'solid' ,
-        fontSize: 30,
+        fontSize: width * 0.07,
         fontFamily: 'DungGeunMo',
         color:'grey',
         },
     todo_time:{
-        fontSize: 30,
+        fontSize: width * 0.07,
         fontFamily: 'DungGeunMo',
     },
     todo_time_complete:{
         textDecorationLine: 'line-through',
         textDecorationStyle: 'solid',
-        fontSize: 30,
+        fontSize: width * 0.07,
         fontFamily: 'DungGeunMo',
         color: 'grey',
     },

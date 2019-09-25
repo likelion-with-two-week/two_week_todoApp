@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     todo_list_box: {
         // borderWidth: 3,
         // borderColor: 'green',
-        marginBottom: 5,
+       
         flex: 3,
     },
     todolist_container: {
@@ -58,12 +58,12 @@ const styles = StyleSheet.create({
         marginLeft:width*0.05,
     },
     todolist_lefttext: {
-        fontSize: 50,
+        fontSize: width*0.12,
         fontFamily: 'DungGeunMo',
         color: '#e85a71',
     },
     todolist_righttext: {
-        fontSize: 50,
+        fontSize: width * 0.12,
         fontFamily: 'DungGeunMo',
         color: 'white',
     }

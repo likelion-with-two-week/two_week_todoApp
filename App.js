@@ -68,11 +68,11 @@ const MainNavi = createAppContainer(AddNavi)
 export default class App extends React.Component {
 
   _storeData = async () => {
-    await AsyncStorage.setItem('@todolove11:state', JSON.stringify(this.state))
+    await AsyncStorage.setItem('@todolove:state', JSON.stringify(this.state))
   }
 
   _getData = async () => {
-    const mystate = await AsyncStorage.getItem("@todolove11:state")
+    const mystate = await AsyncStorage.getItem("@todolove:state")
     if (mystate !== null) {
       this.setState(JSON.parse(mystate))
       // console.log(mystate)
@@ -83,7 +83,7 @@ export default class App extends React.Component {
   async componentDidMount() {
     await this._getData()
     // this._checkTime()
-    setInterval(this._overTimer(),10000)
+    setInterval(this._overTimer,5000)
   }
 
 
@@ -106,6 +106,20 @@ export default class App extends React.Component {
       ],
 
       hate_imageUri:'',
+      normal_mention:[
+        '반가워요! ㅇㅇㅇ씨 우리 같은팀이죠 ? 잘부탁해요 해야 할 일은 뭔가요 ?',
+        'ㅇㅇㅇ씨 오늘 할일 하셨어요?? 모두 완료하시려면 서둘러야겠어요!',
+        'ㅇㅇㅇ씨 오늘할일은 더 없는거에요? 수고많으셨어요!!',
+      ],
+      good_mention:[
+        'good_1','good_2','good_3',
+      ],
+      bad_mention:[
+        'bad_1','bad_2','bad_3',
+      ],
+      middle_image:[
+         require('./assets/Mainpage/50퍼2.png'), require('./assets/Mainpage/50퍼3.png'), require('./assets/Mainpage/50퍼1.png'),
+      ]
     }
   }
 
@@ -153,7 +167,7 @@ export default class App extends React.Component {
     const update_todos = [...this.state.todos]
 
     for (const i of this.state.todos) {
-      if (i.deadline + 30000 <= overchecktime.getTime()  ){
+      if (i.deadline + 86400000 <= overchecktime.getTime()  ){
         if (i.iscomplete === true) {
           console.log("얘는 성공한 애입니다", i)
           delete_success_index = this.state.todos.findIndex((element)=>{ return element.deadline === i.deadline})
@@ -193,11 +207,11 @@ export default class App extends React.Component {
 
         const reverseTodo = [...this.state.todos]
         const prevSuccess = [...this.state.success_todos]
-        if ((nowtime.getTime() - item.deadline ) <= 30000) { //24시간을 환산하면 86400000
+        if ((nowtime.getTime() - item.deadline) <= 86400000) { //24시간을 환산하면 86400000
           
           reverseTodo[index].iscomplete = !reverseTodo[index].iscomplete
           
-          alert("축하합니다! 호감도 +3  (리스트는 등록후 24시간 뒤에 삭제됩니다) ");
+          alert("축하합니다! 호감도 +3  (리스트는 등록후 24시간 뒤에 자동 삭제됩니다) ");
           // Alert.alert(
           //   '오늘의 ToDo를 했나요?',
           //   '',
@@ -321,6 +335,7 @@ export default class App extends React.Component {
     /////////////////////////////
     // console.log("state가 가진 todo check" , this.state.todos)
     // console.log(this.state.MainScore)
+    console.log(this.state.MainScore)
     return (
 
       <SafeAreaView style = {styles.main_background}>
@@ -342,7 +357,12 @@ export default class App extends React.Component {
             changeNameMethod: this._changename,
             inputname : this.state.inputname,
             saveName : this._saveName,
-            }}
+            normal_mention: this.state.normal_mention,
+            bad_mention : this.state.bad_mention,
+            good_mention : this.state.good_mention,
+            Main_score : this.state.MainScore,
+            random_flag: Math.floor(Math.random() * 3) +1 ,
+          }}
             />
       </SafeAreaView>
     );
@@ -367,6 +387,7 @@ const styles = StyleSheet.create({
   main_background:{
     flex:1,
   },
+ 
   //캐릭터 부분이 뜨는 공간
   // character_area: {
   //   flex: 3,

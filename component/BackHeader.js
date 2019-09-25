@@ -1,9 +1,11 @@
 //EditHeader.js
 
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet,SafeAreaView,Text } from 'react-native'
+import { View, TouchableOpacity, StyleSheet,SafeAreaView,Text,Dimensions } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import { Ionicons } from '@expo/vector-icons';
+
+const { height, width } = Dimensions.get('window')
 
 const BackHeader = ({ navigation }) => {
     return (
@@ -25,15 +27,15 @@ const BackHeader = ({ navigation }) => {
 const styles = StyleSheet.create({
     header: {
         backgroundColor:'#454552',
-        paddingLeft: 20,
-        height: 50,
+        paddingLeft: width*0.05,
+        height: height*0.1,
         justifyContent:'center',
-        marginBottom:70,
+        marginBottom:height*0.05,
     },
     backheader_text:{
         fontFamily:'DungGeunMo',
         color:'#ff7f80',
-        fontSize:30,
+        fontSize:width*0.08,
     }
 })
 

@@ -79,15 +79,15 @@ const styles = StyleSheet.create({
     add_todolist_container: {
         flexDirection: 'row',
         marginBottom: height * 0.02,
-        marginLeft: width * 0.1,
+        marginLeft: width * 0.05,
     },
     add_todolist_lefttext: {
-        fontSize: 50,
+        fontSize: width*0.13,
         fontFamily: 'DungGeunMo',
         color: '#e85a71',
     },
     add_todolist_righttext: {
-        fontSize: 50,
+        fontSize: width *0.13,
         fontFamily: 'DungGeunMo',
         color: 'white',
     },
