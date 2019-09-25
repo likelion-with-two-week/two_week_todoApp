@@ -1,8 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TextInput, FlatList, TouchableOpacity } from 'react-native';
-import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { StyleSheet, Text, View, SafeAreaView, TextInput, FlatList, TouchableOpacity,Dimensions } from 'react-native';
+import { MaterialIcons, MaterialCommunityIcons,AntDesign } from '@expo/vector-icons';
 
 import BackHeader from './BackHeader';
+
+const { height,width} = Dimensions.get('window')
 
 export default function AddTodo(props) {
 
@@ -13,12 +15,17 @@ export default function AddTodo(props) {
             <SafeAreaView style={styles.todo_add_box}>
                 <BackHeader />
 
+                    <View style={styles.add_todolist_container}>
+                        <Text style={styles.add_todolist_lefttext}>> ToDo</Text>
+                        <Text style={styles.add_todolist_righttext}> Write</Text>
+                    </View>
+
                     <SafeAreaView style={styles.input_and_icon}>
                         <TextInput
                             placeholder={'Todo를 채워주세요'}
                             value={props.screenProps.displayvalue}
                             onChangeText={props.screenProps.changemethod}
-                            maxLength={50}
+                            maxLength={30}
                             style={styles.todo_inputBox}></TextInput>
 
                         <TouchableOpacity
@@ -27,7 +34,7 @@ export default function AddTodo(props) {
                                 props.navigation.navigate('MainScreen')
                                 }
                                 }>
-                            <MaterialIcons name={'playlist-add'} size={30} />
+                        <AntDesign name={'form'} color="#d8e9ef"size={height*0.15} />
                         </TouchableOpacity>
                     </SafeAreaView>
             </SafeAreaView>
@@ -38,17 +45,47 @@ export default function AddTodo(props) {
 const styles = StyleSheet.create({
 
     todo_add_box: {
-        borderWidth: 3,
-        borderColor: 'purple',
+        backgroundColor:'#454552',
         flex: 1,
     },
     //직접적으로  Text 입력창의 스타일
     todo_inputBox: {
-        borderBottomWidth: 1,
-        width: 200,
-        borderWidth:10,
+        paddingLeft: width * 0.03,
+
+        height: height/8,
+        width: width*0.7,
+        borderTopWidth:3,
+        borderBottomWidth:7,
+        borderLeftWidth:3,
+        borderRightWidth:5,
+        borderColor:'#d8e9ef',
+
+        fontFamily:'DungGeunMo',
+        fontSize: height / 25,
+        color:'#d8e9ef',
     },
     input_and_icon:{
-        flexDirection:'row',
+        // borderWidth:5,
+        // flexDirection:'col',
+        height:height*0.5,
+        alignItems:'center',
+        justifyContent:'space-around',
+        paddingHorizontal:width*0.07,
+    },
+    add_todolist_container: {
+        flexDirection: 'row',
+        marginBottom: height * 0.02,
+        marginLeft: width * 0.1,
+    },
+    add_todolist_lefttext: {
+        fontSize: 50,
+        fontFamily: 'DungGeunMo',
+        color: '#e85a71',
+    },
+    add_todolist_righttext: {
+        fontSize: 50,
+        fontFamily: 'DungGeunMo',
+        color: 'white',
     }
+
 })

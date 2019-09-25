@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, SafeAreaView, TextInput, FlatList, TouchableOpacity,View, Image,ScrollView, StatusBar } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, TextInput, FlatList, TouchableOpacity,View, Image,ScrollView, StatusBar,Alert } from 'react-native';
 import { MaterialIcons ,MaterialCommunityIcons} from '@expo/vector-icons';
 
 import { createAppContainer } from 'react-navigation';
@@ -15,6 +15,7 @@ import TodoListScreen from './component/TodoListScreen';
 
 
 import { SplashScreen } from 'expo';
+import { AsyncStorage } from 'react-native';
 
 // const MainBottomNavi = createBottomTabNavigator(
 //   {
@@ -62,12 +63,22 @@ const MainNavi = createAppContainer(AddNavi)
 
 export default class App extends React.Component {
 
+  _storeData = async () => {
+    await AsyncStorage.setItem('@todolove:state', JSON.stringify(this.state))
+  }
 
-/////////이것도 스플래쉬때문에 넣어준거
+  _getData = async () => {
+    const mystate = await AsyncStorage.getItem("@todolove:state")
+    if (mystate !== null) {
+      this.setState(JSON.parse(mystate))
+      // console.log(mystate)
+    }
+  }
+//클리어도 하나 넣어주자
 
-  componentDidMount() {
-    SplashScreen.preventAutoHide();
-    this._checkTime()
+  async componentDidMount() {
+    await this._getData()
+    // this._checkTime()
   }
 
 
@@ -77,7 +88,6 @@ export default class App extends React.Component {
     super(props)
     this.state={
       ////아래 Reacy는 splash때문에 넣어준거임
-      isReady: false,
 
       MainScore : 50,  //Todo List의 check를 해서 score를 누적시켜서 우리가 하고자하는 사진과의 crop을 설정한다
 
@@ -85,7 +95,7 @@ export default class App extends React.Component {
 
       inputTodo : '',
       todos:[
-        {title : 'haha'},
+       
       ],
       success_todos:[
 
@@ -103,17 +113,19 @@ export default class App extends React.Component {
   //입력된 Todo의 값을 State에 반영
   _saveTodo = () =>{
     const prevTodo = [...this.state.todos]
-    console.log(prevTodo.length) // 이때 0 1 2 가 뜨는것은 PrevTodoList이기때문에 0개부터 시작해서 012 가 뜨는 것이다.
+    // console.log(prevTodo.length) // 이때 0 1 2 가 뜨는것은 PrevTodoList이기때문에 0개부터 시작해서 012 가 뜨는 것이다.
     if (prevTodo.length <= 2){
         if (this.state.inputTodo !== '') {
           const tempdate = new Date()
+          // console.log(tempdate.getHours())
+          // console.log(tempdate.getMinutes())
           // console.log(tempdate)
           // console.log(tempdate.getTime())
-          const newTodo = { title: this.state.inputTodo, iscomplete: false, deadline: tempdate.getTime()}
+          const newTodo = { title: this.state.inputTodo, iscomplete: false, deadline: tempdate.getTime(), start_hour:tempdate.getHours(), start_minutes : tempdate.getMinutes()}
           this.setState({
             inputTodo: '',
             todos: prevTodo.concat(newTodo)
-          })
+          }, this._storeData)
         }
         else {
           alert('내용을 입력해주세요!')
@@ -131,10 +143,13 @@ export default class App extends React.Component {
   //TodoList를 만들어주는 method 주 용도는 TodoItem component에 넘겨주기 위함이다
   _makeTodoList = ({index,item}) =>{
     return(
+      console.log(item),
       // console.log(index),
     // console.log("maketodoList method내부 확인" , item.title),
     <TodoItem 
       name={item.title}
+      starthour={item.start_hour}
+      startminutes = {item.start_minutes}
       isComplete = {item.iscomplete}
       changeComplete={()=>{
         const nowtime = new Date()
@@ -143,38 +158,77 @@ export default class App extends React.Component {
         const prevSuccess = [...this.state.success_todos]
         if ((nowtime.getTime() - item.deadline ) <= 86400000) { //24시간을 환산하면 86400000
           
-          reverseTodo[index].iscomplete = !reverseTodo[index].iscomplete
+          // reverseTodo[index].iscomplete = !reverseTodo[index].iscomplete
           
           alert("오늘의 ToDo를 완료했습니다");
-          this.setState({ success_todos: prevSuccess.concat(reverseTodo[index]), MainScore: this.state.MainScore + 3 }) //성공리스트 넘기고, 호감도 +3
+          // Alert.alert(
+          //   '오늘의 ToDo를 했나요?',
+          //   '',
+
+          //   [{ text: '', onPress: () => console.log('Ask me later pressed') },
+
+          //     {
+          //       text: '못했어요',
+          //       onPress: () => console.log('Cancel Pressed'),
+          //       style: 'cancel',
+          //     },
+          //     {
+          //       text: '했어요!', onPress: () => {
+          //         reverseTodo[index].iscomplete = !reverseTodo[index].iscomplete
+
+          //         this.setState({ success_todos: prevSuccess.concat(reverseTodo[index]), MainScore: this.state.MainScore + 3 }, this._storeData) //성공리스트 넘기고, 호감도 +3
+          //         reverseTodo.splice(index, 1)} 
+          //     },
+              
+          //   ],
+          //   { cancelable: false },
+          // );
+          this.setState({ success_todos: prevSuccess.concat(reverseTodo[index]), MainScore: this.state.MainScore + 3 }, this._storeData) //성공리스트 넘기고, 호감도 +3
           reverseTodo.splice(index, 1)
 
         } else { 
 
           alert("24시간이 지나 실패했습니다")
-          this.setState({ MainScore: this.state.MainScore - 3 }) 
+          this.setState({ MainScore: this.state.MainScore - 3 }, this._storeData) 
           reverseTodo.splice(index, 1);
         }
 
-        this.setState({ todos: reverseTodo })
+        this.setState({ todos: reverseTodo }, this._storeData)
         // console.log(this.state.MainScore)
       }}
       deleteItem={()=>{
         const deleteTodo = [...this.state.todos]
         deleteTodo.splice(index,1)
-        this.setState({todos:deleteTodo})
+        this.setState({ todos: deleteTodo }, this._storeData)
       }}
     />
     )
   }
+////////////////////////////////////////
+//그런데 좀더 본질적으로 이러한 과정이 꼭 필요한 과정인지 그냥 들어왓을때 삭제가 되는것보다 추가시에 문제가 되지 않을지 생각해보자
+////////////////////////////////////////
 
-  _checkTime = () =>{
-    const checktime = new Date()
-    for(const i of this.state.todos){
-      console.log(i)
-      console.log()
-    }
-  }
+  // _checkTime = () =>{
+  //   const checktime = new Date()
+  //   console.log("checktime")
+  //   const timecheck = [...this.state.todos]
+  //   const tempScore = this.state.MainScore
+  //   for(const i of this.state.todos){
+  //     if (checktime.getTime() - i.deadline < 86400000){
+  //     //  console.log(i) 
+  //     console.log("in if floop")
+  //       deleteIndex = timecheck.findIndex((item) => { return item.deadline === i.deadline })
+  //       console.log(deleteIndex)
+
+  //       timecheck.splice(deleteIndex, 1)
+  //       alert("24시간 초과로 Todo < " + (i.title).toString()  +  " > 를 실패했습니다")
+  //       tempScore = tempScore - 3
+  //       this.setState({todos : timecheck , MainScore : tempScore})
+  //       console.log(this.state.MainScore)
+  //       console.log(this.state.todos)
+  //     }
+  //   }
+  // }
   //이부분에 아이콘을 누르면 method가 실행되게 하는데 해당 emthod는 우리의 TodoItem으로 method를 전달해주는 역할을 하는 애가 되면 될것 같다
 
 
@@ -187,23 +241,24 @@ export default class App extends React.Component {
     });
 
     if (!result.cancelled) {
-      this.setState({ imageUri: result.uri });
+      this.setState({ imageUri: result.uri }, this._storeData);
     }
   };
   render(){
     ///////////////////////
-    if (!this.state.isReady) {
-      return (
-        <View style={{ flex: 1 }}>
-          <Image
-            source={require('./assets/splash2.gif')}
-            onLoad={this._cacheResourcesAsync}
-          />
-        </View>
-      );
-    }
+    // if (!this.state.isReady) {
+    //   return (
+    //     <View style={{ flex: 1 }}>
+    //       <Image
+    //         source={require('./assets/splash2.gif')}
+    //         onLoad={this._cacheResourcesAsync}
+    //       />
+    //     </View>
+    //   );
+    // }
     /////////////////////////////
     // console.log("state가 가진 todo check" , this.state.todos)
+    console.log(this.state.MainScore)
     return (
 
       <SafeAreaView style = {styles.main_background}>
@@ -225,17 +280,17 @@ export default class App extends React.Component {
     );
   }
 /////////////////////loading창 코드구분//////////
-  _cacheSplashResourcesAsync = async () => {
-    const gif = require('./assets/splash2.gif');
-    return Asset.fromModule(gif).downloadAsync();
-  };
+  // _cacheSplashResourcesAsync = async () => {
+  //   const gif = require('./assets/splash2.gif');
+  //   return Asset.fromModule(gif).downloadAsync();
+  // };
 
-  _cacheResourcesAsync = async () => {
-    SplashScreen.hide();
+  // _cacheResourcesAsync = async () => {
+  //   SplashScreen.hide();
  
 
-    this.setState({ isReady: true });
-  };
+  //   this.setState({ isReady: true });
+  // };
   
 }
 /////////////////////////////////////////

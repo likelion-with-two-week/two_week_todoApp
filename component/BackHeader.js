@@ -1,7 +1,7 @@
 //EditHeader.js
 
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet,SafeAreaView } from 'react-native'
+import { View, TouchableOpacity, StyleSheet,SafeAreaView,Text } from 'react-native'
 import { withNavigation } from 'react-navigation'
 import { Ionicons } from '@expo/vector-icons';
 
@@ -14,7 +14,7 @@ const BackHeader = ({ navigation }) => {
                     activeOpacity={0.8}
                     onPress={() => { navigation.goBack() }}
                     hitSlop={{ top: 32, bottom: 32, left: 32, right: 32 }}>
-                    <Ionicons name="ios-arrow-back" size={25} color={'#7a7171'} />
+                    <Text style={styles.backheader_text}>↩ 돌아가기 </Text>
                 </TouchableOpacity>
 
             </SafeAreaView>
@@ -24,14 +24,17 @@ const BackHeader = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     header: {
-        backgroundColor:'skyblue',
+        backgroundColor:'#454552',
         paddingLeft: 20,
         height: 50,
         justifyContent:'center',
+        marginBottom:70,
     },
-    container: {
-    },
-
+    backheader_text:{
+        fontFamily:'DungGeunMo',
+        color:'#ff7f80',
+        fontSize:30,
+    }
 })
 
 export default withNavigation(BackHeader);
