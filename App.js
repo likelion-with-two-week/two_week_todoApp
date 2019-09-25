@@ -68,11 +68,11 @@ const MainNavi = createAppContainer(AddNavi)
 export default class App extends React.Component {
 
   _storeData = async () => {
-    await AsyncStorage.setItem('@todolove7:state', JSON.stringify(this.state))
+    await AsyncStorage.setItem('@todolove8:state', JSON.stringify(this.state))
   }
 
   _getData = async () => {
-    const mystate = await AsyncStorage.getItem("@todolove7:state")
+    const mystate = await AsyncStorage.getItem("@todolove8:state")
     if (mystate !== null) {
       this.setState(JSON.parse(mystate))
       // console.log(mystate)
@@ -146,8 +146,24 @@ export default class App extends React.Component {
    
   }
   _overTimer = () =>{
+    const overchecktime = new Date()
+    const plus_score =0 
+    const minus_score = 0 
     for (const i of this.state.todos) {
-      console.log(i)
+      if (i.deadline + 60000 <= overchecktime.getTime()  ){
+        if (i.iscomplete === true) {
+          console.log("얘는 성공한 애입니다", i)
+          delete_success_index = this.state.todos.findIndex((element)=>{ return element.deadline === i.deadline})
+
+          
+        }
+        else { //86400000이 하루 기준 초
+          console.log("얘는 실패한 애입니다", i.title)
+          delete_fail_index = this.state.todos.findIndex((element) => { return element.deadline === i.deadline })
+
+        }
+      }
+     
     }
   }
   //TodoList를 만들어주는 method 주 용도는 TodoItem component에 넘겨주기 위함이다

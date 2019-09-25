@@ -34,7 +34,10 @@ export default function AddTodo(props) {
                                 props.navigation.navigate('MainScreen')
                                 }
                                 }>
-                        <AntDesign name={'form'} color="#d8e9ef"size={height*0.15} />
+                        {/* <View style={styles.save_text_container_style}> */}
+                            <Text style={styles.save_text_style}> >저장하기 </Text>
+                        {/* </View> */}
+                        {/* <AntDesign name={'form'} color="#d8e9ef"size={height*0.15} /> */}
                         </TouchableOpacity>
                     </SafeAreaView>
             </SafeAreaView>
@@ -68,7 +71,7 @@ const styles = StyleSheet.create({
     input_and_icon:{
         // borderWidth:5,
         // flexDirection:'col',
-        height:height*0.5,
+        height:height*0.4,
         alignItems:'center',
         justifyContent:'space-around',
         paddingHorizontal:width*0.07,
@@ -87,6 +90,26 @@ const styles = StyleSheet.create({
         fontSize: 50,
         fontFamily: 'DungGeunMo',
         color: 'white',
-    }
+    },
+    save_text_container_style:{
+        paddingLeft: width * 0.03,
+        paddingRight: width * 0.02,
+
+        height: height / 12,
+        width: width * 0.5,
+        borderTopWidth: 3,
+        borderBottomWidth: 7,
+        borderLeftWidth: 3,
+        borderRightWidth: 5,
+        borderColor: '#d8e9ef',
+        alignItems:'center',
+        justifyContent:'center',
+    },
+    save_text_style:{
+
+        color:"#d8e9ef",
+        fontSize: height*0.05,
+        fontFamily:'DungGeunMo',
+    },
 
 })
