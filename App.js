@@ -83,7 +83,7 @@ export default class App extends React.Component {
   async componentDidMount() {
     await this._getData()
     // this._checkTime()
-    this._overTimer()
+    setInterval(this._overTimer(),10000)
   }
 
 
