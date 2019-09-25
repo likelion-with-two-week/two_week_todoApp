@@ -7,9 +7,8 @@ import BackHeader from './BackHeader'
 const { height, width } = Dimensions.get('window')
 
 export default function TodoListScreen(props) {
-
+   
     return (
-        // console.log('TodoItem compo 안에 넘어오는지 확인', name),
         <SafeAreaView style={styles.todo_area}>
             <BackHeader />
 

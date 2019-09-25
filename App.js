@@ -12,8 +12,7 @@ import TodoItem from './component/TodoItem';
 import AddTodo from './component/AddTodo';
 import MainScreen from './component/MainScreen';
 import TodoListScreen from './component/TodoListScreen';
-
-
+import Todocomplete from './component/Todocomplete';
 import { SplashScreen } from 'expo';
 import { AsyncStorage } from 'react-native';
 
@@ -49,11 +48,16 @@ const AddNavi = createStackNavigator(
     },
     TodoListScreen:{
       screen : TodoListScreen
+    }, 
+    Todocomplete:{
+      screen: Todocomplete
     },
+
   },
+   
+
   {
     headerMode: 'none',
-
     initialRouteName: 'MainScreen', 
   }
 )
@@ -64,11 +68,11 @@ const MainNavi = createAppContainer(AddNavi)
 export default class App extends React.Component {
 
   _storeData = async () => {
-    await AsyncStorage.setItem('@todolove:state', JSON.stringify(this.state))
+    await AsyncStorage.setItem('@todolove6:state', JSON.stringify(this.state))
   }
 
   _getData = async () => {
-    const mystate = await AsyncStorage.getItem("@todolove:state")
+    const mystate = await AsyncStorage.getItem("@todolove6:state")
     if (mystate !== null) {
       this.setState(JSON.parse(mystate))
       // console.log(mystate)
@@ -101,6 +105,7 @@ export default class App extends React.Component {
 
       ],
 
+      hate_imageUri:'',
     }
   }
 
@@ -143,7 +148,7 @@ export default class App extends React.Component {
   //TodoList를 만들어주는 method 주 용도는 TodoItem component에 넘겨주기 위함이다
   _makeTodoList = ({index,item}) =>{
     return(
-      console.log(item),
+      // console.log(item),
       // console.log(index),
     // console.log("maketodoList method내부 확인" , item.title),
     <TodoItem 
@@ -158,9 +163,9 @@ export default class App extends React.Component {
         const prevSuccess = [...this.state.success_todos]
         if ((nowtime.getTime() - item.deadline ) <= 86400000) { //24시간을 환산하면 86400000
           
-          // reverseTodo[index].iscomplete = !reverseTodo[index].iscomplete
+          reverseTodo[index].iscomplete = !reverseTodo[index].iscomplete
           
-          alert("오늘의 ToDo를 완료했습니다");
+          alert("                             호감도가 +2 되었습니다    ");
           // Alert.alert(
           //   '오늘의 ToDo를 했나요?',
           //   '',
@@ -183,13 +188,16 @@ export default class App extends React.Component {
           //   ],
           //   { cancelable: false },
           // );
-          this.setState({ success_todos: prevSuccess.concat(reverseTodo[index]), MainScore: this.state.MainScore + 3 }, this._storeData) //성공리스트 넘기고, 호감도 +3
-          reverseTodo.splice(index, 1)
+          this.setState({ success_todos: prevSuccess.concat(reverseTodo[index]), MainScore: this.state.MainScore + 2 }, this._storeData) //성공리스트 넘기고, 호감도 +3
+          //순간 체크하는거
+          // reverseTodo.splice(index, 1)
 
+          // 
+ 
         } else { 
 
           alert("24시간이 지나 실패했습니다")
-          this.setState({ MainScore: this.state.MainScore - 3 }, this._storeData) 
+          this.setState({ MainScore: this.state.MainScore - 2 }, this._storeData) 
           reverseTodo.splice(index, 1);
         }
 
@@ -244,6 +252,16 @@ export default class App extends React.Component {
       this.setState({ imageUri: result.uri }, this._storeData);
     }
   };
+  _hateselectImage = async () => {
+
+    let result2 = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+    });
+
+    if (!result2.cancelled) {
+      this.setState({ hate_imageUri: result2.uri }, this._storeData);
+    }
+  };
   render(){
     ///////////////////////
     // if (!this.state.isReady) {
@@ -258,7 +276,7 @@ export default class App extends React.Component {
     // }
     /////////////////////////////
     // console.log("state가 가진 todo check" , this.state.todos)
-    console.log(this.state.MainScore)
+    // console.log(this.state.MainScore)
     return (
 
       <SafeAreaView style = {styles.main_background}>
@@ -274,6 +292,8 @@ export default class App extends React.Component {
             savemethod: this._saveTodo ,
             selectImage : this._selectImage,
             mainImageUri : this.state.imageUri,
+            hateImageUri : this.state.hate_imageUri,
+            selectHateImage: this._hateselectImage,
             }}
             />
       </SafeAreaView>
