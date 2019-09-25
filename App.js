@@ -78,7 +78,7 @@ export default class App extends React.Component {
       // console.log(mystate)
     }
   }
-//클리어도 하나 넣어주자
+//클리어도 하나 넣어주자 .clear()
 
   async componentDidMount() {
     await this._getData()
@@ -170,7 +170,8 @@ export default class App extends React.Component {
           update_todos.splice(delete_success_index, 1)
 
         }
-        alert("성공한 " + (success_item).toString() +"개의 Todo,"+ "실패한 "+ (fail_item).toString() +"개의 Todo 가 삭제되었습니다." )
+        alert("성공한 " + (success_item).toString() +"개의 Todo,"+ "실패한 "+ (fail_item).toString() +"개의 Todo 가 삭제되었습니다." 
+              + " 호감도 " + (plus_score - minus_score).toString() + " 가 증가(감소)하였습니다." )
         this.setState({todos: update_todos, MainScore : this.state.MainScore - minus_score }, this._storeData)
       }
      

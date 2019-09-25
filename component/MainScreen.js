@@ -251,12 +251,12 @@ const styles = StyleSheet.create({
     continue_style:{
         color:'white',
         fontFamily: 'DungGeunMo',
-        fontSize:30,
+        fontSize:width*0.08,
     },
     continue_box:{
         borderColor:'white',
         borderWidth:2,
-        padding:10,
+        padding:width*0.03,
         borderRadius:10,
     },
     photoadd_style:{
@@ -265,15 +265,15 @@ const styles = StyleSheet.create({
     },
     photoaddtext:{
         fontFamily: 'DungGeunMo',
-        fontSize:22,
-        color:'white'
+        fontSize:width*0.055,
+        color:'white',
     },
     added_photo:{
         height:height*0.2,
         width:width*0.35,
         borderRadius:200,
         marginBottom: height * 0.05,
-        paddingHorizontal:10,
+        paddingHorizontal:height*0.05,
     },
     inputname_container:{
         flexDirection:'row',
@@ -284,9 +284,9 @@ const styles = StyleSheet.create({
     myname_input:{
         color:'white',
         fontFamily: 'DungGeunMo',
-        fontSize: 20,
+        fontSize: width*0.05,
         width:width*0.6,
+        marginLeft: width*0.03
     }
-    //#e85a71 
-    //#4ea1d3 
+
 });
