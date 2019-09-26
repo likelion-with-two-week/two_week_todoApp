@@ -14,8 +14,8 @@
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/loading.png",
-      "resizeMode": "stretch",
-      "backgroundColor": "white"
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -23,6 +23,13 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "android":{
+      "package" : "perpet.twoweeks.todolove",
+      "icon":"./assets/icon.png",
+      "adaptiveIcon":{
+        "backgroundColor": "#ffffff"
+      }
+    },
     "ios": {
       "supportsTablet": true
     }

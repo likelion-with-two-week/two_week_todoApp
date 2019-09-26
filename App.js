@@ -68,11 +68,11 @@ const MainNavi = createAppContainer(AddNavi)
 export default class App extends React.Component {
 
   _storeData = async () => {
-    await AsyncStorage.setItem('@todolove:state', JSON.stringify(this.state))
+    await AsyncStorage.setItem('@todolove2:state', JSON.stringify(this.state))
   }
 
   _getData = async () => {
-    const mystate = await AsyncStorage.getItem("@todolove:state")
+    const mystate = await AsyncStorage.getItem("@todolove2:state")
     if (mystate !== null) {
       this.setState(JSON.parse(mystate))
       // console.log(mystate)
@@ -84,8 +84,8 @@ export default class App extends React.Component {
     await this._getData()
     this._checkScore()
     // this._checkTime()
-    console.log("*********************************************************************************")
-    setInterval(this._overTimer,20000)
+    // console.log("*********************************************************************************")
+    setInterval(this._overTimer,15000)
   }
 
 
@@ -185,7 +185,7 @@ export default class App extends React.Component {
     let update_todos = [...this.state.todos]
     
     for (const i of this.state.todos) {
-      if (i.deadline + 20000 <= overchecktime.getTime()  ){
+      if (i.deadline + 86400000 <= overchecktime.getTime()  ){
         if (i.iscomplete === true) {
           // console.log("얘는 성공한 애입니다", i)
           delete_success_index = update_todos.findIndex((element)=>{ return element.deadline === i.deadline})
@@ -202,7 +202,6 @@ export default class App extends React.Component {
           minus_score = minus_score +2
           fail_item = fail_item +1
           update_todos.splice(delete_fail_index, 1)
-          // console.log(update_todos,"@@@@@@@@@@@@얘는 사삭제하고 난 뒤에 @@@@@@@@@@@@@@@")
         }
         next_flag = true
       }
@@ -231,7 +230,7 @@ export default class App extends React.Component {
 
         const reverseTodo = [...this.state.todos]
         const prevSuccess = [...this.state.success_todos]
-        if ((nowtime.getTime() - item.deadline) <= 10000) { //24시간을 환산하면 86400000
+        if ((nowtime.getTime() - item.deadline) <= 86400000) { //24시간을 환산하면 86400000
           
           reverseTodo[index].iscomplete = !reverseTodo[index].iscomplete
           
