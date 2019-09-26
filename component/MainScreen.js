@@ -27,7 +27,7 @@ export default class MainScreen extends React.Component {
     
     
     render(){
-        console.log("넘어오는 random_flag",this.props.screenProps.random_flag)
+        // console.log("넘어오는 random_flag",this.props.screenProps.random_flag)
         const temp_flag = this.props.screenProps.random_flag
         let param_tag 
         // console.log(this.props.screenProps.normal_mention)
@@ -616,32 +616,33 @@ const styles = StyleSheet.create({
     ///////////////////////대사 부분
     random_mention:{
         color:'#444f59',
-        fontSize:width*0.06,
+        fontSize:width*0.045,
         fontFamily:'Jalnan',
         lineHeight: height * 0.04,
-        letterSpacing:width*0.02,
+        letterSpacing:width*0.01,
     },
     mention_area:{
-        // borderWidth:10,
-        // borderColor:'black',
+        // borderWidth:5,
+        borderColor:'black',
         marginTop:height*0.14,
         width: width*0.55,
         marginLeft:width*0.225,
-        alignItems:'center'
+        alignItems:'center',
+        height:height*0.12,
     },
     random_mention_one: {
         color: '#444f59',
-        fontSize: width * 0.04,
+        fontSize: width * 0.044,
         fontFamily: 'Jalnan',
         lineHeight: height * 0.04,
-        letterSpacing: width * 0.02,
+        letterSpacing: width * 0.013,
     },
     random_mention_two:{
         color: '#444f59',
-        fontSize: width * 0.05,
+        fontSize: width * 0.036,
         fontFamily: 'Jalnan',
         lineHeight: height * 0.04,
-        letterSpacing: width * 0.02,
+        letterSpacing: width * 0.003,
     },
     mention_area_one:{
 
@@ -656,7 +657,7 @@ const styles = StyleSheet.create({
         marginTop: height *0.11,
         width: width * 0.5,
         height: height * 0.04,
-        marginLeft: width * 0.40,
+        marginLeft: width * 0.37,
         alignItems: 'center'
     },
 

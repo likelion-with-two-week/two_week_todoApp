@@ -84,7 +84,8 @@ export default class App extends React.Component {
     await this._getData()
     this._checkScore()
     // this._checkTime()
-    setInterval(this._overTimer,5000)
+    console.log("*********************************************************************************")
+    setInterval(this._overTimer,20000)
   }
 
 
@@ -95,7 +96,7 @@ export default class App extends React.Component {
       ////아래 Reacy는 splash때문에 넣어준거임
       inputname :'',
       username :'',
-      MainScore : 75,  //Todo List의 check를 해서 score를 누적시켜서 우리가 하고자하는 사진과의 crop을 설정한다
+      MainScore : 50,  //Todo List의 check를 해서 score를 누적시켜서 우리가 하고자하는 사진과의 crop을 설정한다
 
       imageUri:'',  //우리가 main 얼굴로 넣을 image를 선정한다
 
@@ -180,13 +181,14 @@ export default class App extends React.Component {
     let minus_score = 0 
     let success_item = 0
     let fail_item = 0
-    const update_todos = [...this.state.todos]
+    let next_flag = false
+    let update_todos = [...this.state.todos]
     
     for (const i of this.state.todos) {
       if (i.deadline + 20000 <= overchecktime.getTime()  ){
         if (i.iscomplete === true) {
           console.log("얘는 성공한 애입니다", i)
-          delete_success_index = this.state.todos.findIndex((element)=>{ return element.deadline === i.deadline})
+          delete_success_index = update_todos.findIndex((element)=>{ return element.deadline === i.deadline})
           plus_score = plus_score + 2
           success_item = success_item + 1
           update_todos.splice(delete_success_index,1)
@@ -194,17 +196,23 @@ export default class App extends React.Component {
         }
         else { //86400000이 하루 기준 초
           console.log("얘는 실패한 애입니다", i.title)
-          delete_fail_index = this.state.todos.findIndex((element) => { return element.deadline === i.deadline })
+          console.log(update_todos, "index찾아오는 todolist입니다")
+          delete_fail_index = update_todos.findIndex((element) => { return element.deadline === i.deadline })
+          console.log("그래서 실패한 애의 index를 찾고있습니다", delete_fail_index)
           minus_score = minus_score +2
           fail_item = fail_item +1
-          update_todos.splice(delete_success_index, 1)
-
+          update_todos.splice(delete_fail_index, 1)
+          console.log(update_todos,"@@@@@@@@@@@@얘는 사삭제하고 난 뒤에 @@@@@@@@@@@@@@@")
         }
-        alert("성공한 " + (success_item).toString() +"개의 Todo,"+ "실패한 "+ (fail_item).toString() +"개의 Todo 가 삭제되었습니다." 
-              + " 호감도 " + (plus_score - minus_score).toString() + " 가 증가(감소)하였습니다." )
-        this.setState({todos: update_todos, MainScore : this.state.MainScore - minus_score }, this._storeData)
+        next_flag = true
       }
-     
+      
+    }
+    if (next_flag){
+      alert("성공한 " + (success_item).toString() + "개의 Todo," + "실패한 " + (fail_item).toString() + "개의 Todo 가 삭제되었습니다."
+        + " 호감도 " + (plus_score - minus_score).toString() + " 가 증가(감소)하였습니다.")
+      this.setState({ todos: update_todos, MainScore: this.state.MainScore - minus_score }, this._storeData)
+      this._checkScore()
     }
   }
   //TodoList를 만들어주는 method 주 용도는 TodoItem component에 넘겨주기 위함이다
@@ -223,11 +231,11 @@ export default class App extends React.Component {
 
         const reverseTodo = [...this.state.todos]
         const prevSuccess = [...this.state.success_todos]
-        if ((nowtime.getTime() - item.deadline) <= 20000) { //24시간을 환산하면 86400000
+        if ((nowtime.getTime() - item.deadline) <= 10000) { //24시간을 환산하면 86400000
           
           reverseTodo[index].iscomplete = !reverseTodo[index].iscomplete
           
-          alert("축하합니다! 호감도 +3  (리스트는 등록후 24시간 뒤에 자동 삭제됩니다) ");
+          alert("축하합니다! 호감도 +2  (리스트는 등록후 24시간 뒤에 자동 삭제됩니다) ");
           // Alert.alert(
           //   '오늘의 ToDo를 했나요?',
           //   '',
@@ -255,12 +263,14 @@ export default class App extends React.Component {
           // reverseTodo.splice(index, 1)
 
           // 
- 
+          this._checkScore()
         } else { 
 
           alert("24시간이 지나 실패했습니다! 호감도 -2")
           this.setState({ MainScore: this.state.MainScore - 2 }, this._storeData) 
           reverseTodo.splice(index, 1);
+          this._checkScore()
+
         }
 
         this.setState({ todos: reverseTodo }, this._storeData)
