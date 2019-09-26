@@ -26,7 +26,7 @@ const BackHeader = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     header: {
-        backgroundColor:'#454552',
+        backgroundColor:'#444f59',
         paddingLeft: width*0.05,
         height: height*0.1,
         justifyContent:'center',

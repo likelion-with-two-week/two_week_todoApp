@@ -41,7 +41,7 @@ export default class TodoItem extends React.Component {
 
                 {this.props.isComplete?
                     <TouchableOpacity>
-                        <MaterialCommunityIcons name={'checkbox-intermediate'} size={width*0.13} color="#454552" />
+                        <MaterialCommunityIcons name={'checkbox-intermediate'} size={width * 0.13} color="#444f59" />
                     </TouchableOpacity>
                     :
                     <TouchableOpacity
@@ -53,7 +53,7 @@ export default class TodoItem extends React.Component {
                         }
 
                     >
-                        <MaterialCommunityIcons name={'checkbox-blank-outline'} size={width * 0.13} color="#454552" />
+                        <MaterialCommunityIcons name={'checkbox-blank-outline'} size={width * 0.13} color="#444f59" />
                     </TouchableOpacity>
                     
                     
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         textDecorationStyle: 'solid' ,
         fontSize: width * 0.07,
         fontFamily: 'DungGeunMo',
-        color:'grey',
+        color:'#444f59',
         },
     todo_time:{
         fontSize: width * 0.07,
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
         textDecorationStyle: 'solid',
         fontSize: width * 0.07,
         fontFamily: 'DungGeunMo',
-        color: 'grey',
+        color: '#444f59',
     },
     todoList_textBox:{
         overflow:"scroll",

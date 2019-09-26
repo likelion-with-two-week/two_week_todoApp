@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     //Todo설정과 관련한 부분이 뜨는 부분
     todo_area: {
         flex: 1,
-        backgroundColor: '#454552',
+        backgroundColor: '#fec8c9',
         justifyContent: 'center',
         // borderWidth: 5,
         // borderColor: 'red',
@@ -60,12 +60,12 @@ const styles = StyleSheet.create({
     todolist_lefttext: {
         fontSize: width*0.12,
         fontFamily: 'DungGeunMo',
-        color: '#e85a71',
-    },
+        color: '#ff7f80',
+    }, 
     todolist_righttext: {
         fontSize: width * 0.12,
         fontFamily: 'DungGeunMo',
-        color: 'white',
+        color: '#fff',
     }
 
 

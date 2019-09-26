@@ -48,25 +48,25 @@ export default function AddTodo(props) {
 const styles = StyleSheet.create({
 
     todo_add_box: {
-        backgroundColor:'#454552',
+        backgroundColor:'#fec8c9',
         flex: 1,
     },
     //직접적으로  Text 입력창의 스타일
     todo_inputBox: {
         paddingLeft: width * 0.03,
         paddingRight: width * 0.02,
-
+        backgroundColor:'#fff',
         height: height/8,
         width: width*0.7,
         borderTopWidth:3,
         borderBottomWidth:7,
         borderLeftWidth:3,
         borderRightWidth:5,
-        borderColor:'#d8e9ef',
+        borderColor:'#444f59',
 
         fontFamily:'DungGeunMo',
         fontSize: height / 25,
-        color:'#d8e9ef',
+        color:'#444f59',
     },
     input_and_icon:{
         // borderWidth:5,
@@ -84,30 +84,30 @@ const styles = StyleSheet.create({
     add_todolist_lefttext: {
         fontSize: width*0.13,
         fontFamily: 'DungGeunMo',
-        color: '#e85a71',
+        color: '#ff7f80',
     },
     add_todolist_righttext: {
         fontSize: width *0.13,
         fontFamily: 'DungGeunMo',
         color: 'white',
     },
-    save_text_container_style:{
-        paddingLeft: width * 0.03,
-        paddingRight: width * 0.02,
+    // save_text_container_style:{
+    //     paddingLeft: width * 0.03,
+    //     paddingRight: width * 0.02,
 
-        height: height / 12,
-        width: width * 0.5,
-        borderTopWidth: 3,
-        borderBottomWidth: 7,
-        borderLeftWidth: 3,
-        borderRightWidth: 5,
-        borderColor: '#d8e9ef',
-        alignItems:'center',
-        justifyContent:'center',
-    },
+    //     height: height / 12,
+    //     width: width * 0.5,
+    //     borderTopWidth: 3,
+    //     borderBottomWidth: 7,
+    //     borderLeftWidth: 3,
+    //     borderRightWidth: 5,
+    //     borderColor: '#d8e9ef',
+    //     alignItems:'center',
+    //     justifyContent:'center',
+    // },
     save_text_style:{
 
-        color:"#d8e9ef",
+        color:"#444f59",
         fontSize: height*0.05,
         fontFamily:'DungGeunMo',
     },

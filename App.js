@@ -82,6 +82,7 @@ export default class App extends React.Component {
 
   async componentDidMount() {
     await this._getData()
+    this._checkScore()
     // this._checkTime()
     setInterval(this._overTimer,5000)
   }
@@ -90,10 +91,11 @@ export default class App extends React.Component {
   constructor(props){
     super(props)
     this.state={
+      random_flag : 0,
       ////아래 Reacy는 splash때문에 넣어준거임
       inputname :'',
       username :'',
-      MainScore : 50,  //Todo List의 check를 해서 score를 누적시켜서 우리가 하고자하는 사진과의 crop을 설정한다
+      MainScore : 75,  //Todo List의 check를 해서 score를 누적시켜서 우리가 하고자하는 사진과의 crop을 설정한다
 
       imageUri:'',  //우리가 main 얼굴로 넣을 image를 선정한다
 
@@ -107,19 +109,22 @@ export default class App extends React.Component {
 
       hate_imageUri:'',
       normal_mention:[
-        '반가워요! ㅇㅇㅇ씨 우리 같은팀이죠 ? 잘부탁해요 해야 할 일은 뭔가요 ?',
-        'ㅇㅇㅇ씨 오늘 할일 하셨어요?? 모두 완료하시려면 서둘러야겠어요!',
-        'ㅇㅇㅇ씨 오늘할일은 더 없는거에요? 수고많으셨어요!!',
+        '씨 반가워요! 우리 같은 팀이죠? 잘 부탁해요. 오늘 할 일은 뭔가요?',
+        '씨 오늘 할 일 하셨어요?? 모두 완료하시려면 서둘러야겠어요!',
+        '씨 오늘 할 일은 더 없는 거예요? 수고 많으셨어요!!',
       ],
       good_mention:[
-        'good_1','good_2','good_3',
+        '! 오늘도 좋은 하루야, 오늘 할 일 나랑 같이할래?',
+        '! 오늘 할 일 빨리하고 내 거 좀 도와주라♡ 응???',
+        '! 오늘 할 일 빨리 끝내고 나랑 놀러 가자~',
       ],
       bad_mention:[
-        'bad_1','bad_2','bad_3',
+        ' 오늘부터 같이 일하게 된 제 친구예요', '너 진짜 성실하다~?                    ', '남은 할 일 좀 빨리해주세요         ',
       ],
-      middle_image:[
-         require('./assets/Mainpage/50퍼2.png'), require('./assets/Mainpage/50퍼3.png'), require('./assets/Mainpage/50퍼1.png'),
-      ]
+      bad_mention_two:[
+        '아.. 안녕하세요...?', '에이 뭐 이런걸가지고', '우리 빨리 가야 한단 말이에요!',
+      ],
+    
     }
   }
 
@@ -158,6 +163,17 @@ export default class App extends React.Component {
     }
    
   }
+  _checkScore= () =>{
+    if (this.state.MainScore >=75){
+      this.setState({ random_flag: Math.floor(Math.random() * 3) + 4 },this._storeData)   // 75 이상은 4 5 6
+    }
+    else if(this.state.MainScore >= 26){
+      this.setState({ random_flag: Math.floor(Math.random() * 3) + 1 }, this._storeData)   // 75~25은 1,2,3
+    }
+    else{
+      this.setState({ random_flag: Math.floor(Math.random() * 3) + 7 }, this._storeData)   // 25이하는 7 8 9
+    }
+  }
   _overTimer = () =>{
     const overchecktime = new Date()
     let plus_score =0 
@@ -165,9 +181,9 @@ export default class App extends React.Component {
     let success_item = 0
     let fail_item = 0
     const update_todos = [...this.state.todos]
-
+    
     for (const i of this.state.todos) {
-      if (i.deadline + 86400000 <= overchecktime.getTime()  ){
+      if (i.deadline + 20000 <= overchecktime.getTime()  ){
         if (i.iscomplete === true) {
           console.log("얘는 성공한 애입니다", i)
           delete_success_index = this.state.todos.findIndex((element)=>{ return element.deadline === i.deadline})
@@ -207,7 +223,7 @@ export default class App extends React.Component {
 
         const reverseTodo = [...this.state.todos]
         const prevSuccess = [...this.state.success_todos]
-        if ((nowtime.getTime() - item.deadline) <= 86400000) { //24시간을 환산하면 86400000
+        if ((nowtime.getTime() - item.deadline) <= 20000) { //24시간을 환산하면 86400000
           
           reverseTodo[index].iscomplete = !reverseTodo[index].iscomplete
           
@@ -357,11 +373,14 @@ export default class App extends React.Component {
             changeNameMethod: this._changename,
             inputname : this.state.inputname,
             saveName : this._saveName,
+            userName: this.state.username,
             normal_mention: this.state.normal_mention,
             bad_mention : this.state.bad_mention,
+            bad_mention_two: this.state.bad_mention_two,
             good_mention : this.state.good_mention,
             Main_score : this.state.MainScore,
-            random_flag: Math.floor(Math.random() * 3) +1 ,
+            random_flag: this.state.random_flag,
+        
           }}
             />
       </SafeAreaView>

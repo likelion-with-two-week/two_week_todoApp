@@ -27,14 +27,19 @@ export default class MainScreen extends React.Component {
     
     
     render(){
-        console.log(this.props.screenProps.random_flag)
+        console.log("넘어오는 random_flag",this.props.screenProps.random_flag)
         const temp_flag = this.props.screenProps.random_flag
         let param_tag 
-
+        // console.log(this.props.screenProps.normal_mention)
         if(temp_flag===1){
             param_tag = (<ImageBackground resizeMode='contain' source={require('../assets/Mainpage/50퍼1.png')} style={styles.image_background}>
                 <View style={styles.mention_area}>
-                    <Text style={styles.random_mention}>{this.props.screenProps.normal_mention[Math.floor(Math.random() * 3)]}</Text>
+                    {this.state.fontLoaded? 
+                        <Text style={styles.random_mention}>{this.props.screenProps.userName}{this.props.screenProps.normal_mention[Math.floor(Math.random() * 3)]}</Text>
+                    :
+                        null
+                    }
+                   
                 </View>
 
                 <SafeAreaView style={styles.character_area}>
@@ -62,7 +67,11 @@ export default class MainScreen extends React.Component {
         }else if(temp_flag ===2){
             param_tag = (<ImageBackground resizeMode='contain' source={require('../assets/Mainpage/50퍼2.png')} style={styles.image_background}>
                 <View style={styles.mention_area}>
-                    <Text style={styles.random_mention}>{this.props.screenProps.normal_mention[Math.floor(Math.random() * 3)]}</Text>
+                    {this.state.fontLoaded ?
+                        <Text style={styles.random_mention}>{this.props.screenProps.userName}{this.props.screenProps.normal_mention[Math.floor(Math.random() * 3)]}</Text>
+                        :
+                        null
+                    }
                 </View>
 
                 <SafeAreaView style={styles.character_area}>
@@ -82,10 +91,14 @@ export default class MainScreen extends React.Component {
                     </View>
                 </SafeAreaView>
             </ImageBackground>)
-        }else{
+        }else if (temp_flag === 3){
             param_tag =  (<ImageBackground resizeMode='contain' source={require('../assets/Mainpage/50퍼3.png')} style={styles.image_background}>
                 <View style={styles.mention_area}>
-                    <Text style={styles.random_mention}>{this.props.screenProps.normal_mention[Math.floor(Math.random() * 3)]}</Text>
+                    {this.state.fontLoaded ?
+                        <Text style={styles.random_mention}>{this.props.screenProps.userName}{this.props.screenProps.normal_mention[Math.floor(Math.random() * 3)]}</Text>
+                        :
+                        null
+                    }
                 </View>
 
                 <SafeAreaView style={styles.character_area}>
@@ -102,6 +115,232 @@ export default class MainScreen extends React.Component {
                                 <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
 
                         </TouchableOpacity>
+                    </View>
+                </SafeAreaView>
+            </ImageBackground>)
+        } else if (temp_flag===4){
+            param_tag = (<ImageBackground resizeMode='contain' source={require('../assets/Mainpage/75퍼1.png')} style={styles.image_background}>
+                <View style={styles.mention_area}>
+                    {this.state.fontLoaded ?
+                        <Text style={styles.random_mention}>{this.props.screenProps.userName}{this.props.screenProps.good_mention[Math.floor(Math.random() * 3)]}</Text>
+                        :
+                        null
+                    }
+                </View>
+
+                <SafeAreaView style={styles.character_area}>
+
+
+                    <View style={styles.inputimage_area}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                this.props.screenProps.selectImage()
+
+                            }}>
+                            {this.props.screenProps.mainImageUri ?
+                                <Image source={{ uri: this.props.screenProps.mainImageUri }} resizeMode='contain' style={styles.cropimage_style} /> :
+                                <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
+
+                        </TouchableOpacity>
+                    </View>
+                </SafeAreaView>
+            </ImageBackground>)
+        } else if (temp_flag === 5) {
+            param_tag = (<ImageBackground resizeMode='contain' source={require('../assets/Mainpage/75퍼2.png')} style={styles.image_background}>
+                <View style={styles.mention_area}>
+                    {this.state.fontLoaded ?
+                        <Text style={styles.random_mention}>{this.props.screenProps.userName}{this.props.screenProps.good_mention[Math.floor(Math.random() * 3)]}</Text>
+                        :
+                        null
+                    }
+                </View>
+
+                <SafeAreaView style={styles.character_area}>
+
+
+                    <View style={styles.inputimage_area}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                this.props.screenProps.selectImage()
+
+                            }}>
+                            {this.props.screenProps.mainImageUri ?
+                                <Image source={{ uri: this.props.screenProps.mainImageUri }} resizeMode='contain' style={styles.cropimage_style} /> :
+                                <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
+
+                        </TouchableOpacity>
+                    </View>
+                </SafeAreaView>
+            </ImageBackground>)
+        } else if (temp_flag === 6) {
+            param_tag = (<ImageBackground resizeMode='contain' source={require('../assets/Mainpage/75퍼3.png')} style={styles.image_background}>
+                <View style={styles.mention_area}>
+                    {this.state.fontLoaded ?
+                        <Text style={styles.random_mention}>{this.props.screenProps.userName}{this.props.screenProps.good_mention[Math.floor(Math.random() * 3)]}</Text>
+                        :
+                        null
+                    }
+                </View>
+
+                <SafeAreaView style={styles.character_area}>
+
+
+                    <View style={styles.inputimage_area}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                this.props.screenProps.selectImage()
+
+                            }}>
+                            {this.props.screenProps.mainImageUri ?
+                                <Image source={{ uri: this.props.screenProps.mainImageUri }} resizeMode='contain' style={styles.cropimage_style} /> :
+                                <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
+
+                        </TouchableOpacity>
+                    </View>
+                </SafeAreaView>
+            </ImageBackground>)
+        } else if (temp_flag === 7) {
+            let temp_bad_ele = Math.floor(Math.random() * 3)
+            param_tag = (<ImageBackground resizeMode='contain' source={require('../assets/Mainpage/25퍼1.png')} style={styles.image_background}>
+                <View style={styles.mention_area_one}>
+                    {this.state.fontLoaded ?
+                            <Text style={styles.random_mention_one}>{this.props.screenProps.bad_mention[temp_bad_ele]}</Text>
+
+                        :
+                        null
+                    }
+                </View>
+                <View style={styles.mention_area_two}>
+                    {this.state.fontLoaded ?
+                        <Text style={styles.random_mention_two}>{this.props.screenProps.bad_mention_two[temp_bad_ele]}</Text>
+                        :
+                        null
+                    }
+                </View>
+               
+
+                <SafeAreaView style={styles.character_area}>
+
+
+                    <View style={styles.double_inputimage_area}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                this.props.screenProps.selectImage()
+
+                            }}>
+                            {this.props.screenProps.mainImageUri ?
+                                <Image source={{ uri: this.props.screenProps.mainImageUri }} resizeMode='contain' style={styles.left_cropimage_style} /> :
+                                <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
+
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            onPress={() => {
+                                this.props.screenProps.selectHateImage()
+
+                            }}>
+                            {this.props.screenProps.hateImageUri ?
+                                <Image source={{ uri: this.props.screenProps.hateImageUri }} resizeMode='contain' style={styles.right_cropimage_style} /> :
+                                <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
+
+                        </TouchableOpacity>
+                    </View>
+                </SafeAreaView>
+            </ImageBackground>)
+        } else if (temp_flag === 8) {
+            let temp_bad_ele = Math.floor(Math.random() * 3)
+
+            param_tag = (<ImageBackground resizeMode='contain' source={require('../assets/Mainpage/25퍼2.png')} style={styles.image_background}>
+                <View style={styles.mention_area_one}>
+                    {this.state.fontLoaded ?
+                        <Text style={styles.random_mention_one}>{this.props.screenProps.bad_mention[temp_bad_ele]}</Text>
+
+                        :
+                        null
+                    }
+                </View>
+                <View style={styles.mention_area_two}>
+                    {this.state.fontLoaded ?
+                        <Text style={styles.random_mention_two}>{this.props.screenProps.bad_mention_two[temp_bad_ele]}</Text>
+                        :
+                        null
+                    }
+                </View>
+
+                <SafeAreaView style={styles.character_area}>
+
+
+                    <View style={styles.double_inputimage_area}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                this.props.screenProps.selectImage()
+
+                            }}>
+                            {this.props.screenProps.mainImageUri ?
+                                <Image source={{ uri: this.props.screenProps.mainImageUri }} resizeMode='contain' style={styles.left_cropimage_style} /> :
+                                <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
+
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            onPress={() => {
+                                this.props.screenProps.selectHateImage()
+
+                            }}>
+                            {this.props.screenProps.hateImageUri ?
+                                <Image source={{ uri: this.props.screenProps.hateImageUri }} resizeMode='contain' style={styles.right_cropimage_style} /> :
+                                <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
+
+                        </TouchableOpacity>
+                    </View>
+                </SafeAreaView>
+            </ImageBackground>)
+        } else if (temp_flag === 9) {
+            let temp_bad_ele = Math.floor(Math.random() * 3)
+
+            param_tag = (<ImageBackground resizeMode='contain' source={require('../assets/Mainpage/25퍼3.png')} style={styles.image_background}>
+                <View style={styles.mention_area_one}>
+                    {this.state.fontLoaded ?
+                        <Text style={styles.random_mention_one}>{this.props.screenProps.bad_mention[temp_bad_ele]}</Text>
+
+                        :
+                        null
+                    }
+                </View>
+                <View style={styles.mention_area_two}>
+                    {this.state.fontLoaded ?
+                        <Text style={styles.random_mention_two}>{this.props.screenProps.bad_mention_two[temp_bad_ele]}</Text>
+                        :
+                        null
+                    }
+                </View>
+
+                <SafeAreaView style={styles.character_area}>
+
+
+                    <View style={styles.double_inputimage_area}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                this.props.screenProps.selectImage()
+
+                            }}>
+                            {this.props.screenProps.mainImageUri ?
+                                <Image source={{ uri: this.props.screenProps.mainImageUri }} resizeMode='contain' style={styles.left_cropimage_style} /> :
+                                <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
+
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            onPress={() => {
+                                this.props.screenProps.selectHateImage()
+
+                            }}>
+                            {this.props.screenProps.hateImageUri ?
+                                <Image source={{ uri: this.props.screenProps.hateImageUri }} resizeMode='contain' style={styles.right_cropimage_style} /> :
+                                <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
+
+                        </TouchableOpacity>
+
                     </View>
                 </SafeAreaView>
             </ImageBackground>)
@@ -127,7 +366,7 @@ export default class MainScreen extends React.Component {
                         {this.state.fontLoaded ?
                             <View style = {styles.mainbottomtext_container}>
                                 <Text style={styles.mainbottom_lefttext}>> ToDo</Text> 
-                                <Text style={styles.mainbottom_righttext}> List</Text>
+                                <Text style={styles.mainbottom_righttext}> List♥</Text>
                             </View>
                             : null
                         }                
@@ -165,7 +404,7 @@ export default class MainScreen extends React.Component {
                                 <Image source={{ uri: this.props.screenProps.mainImageUri }} resizeMode='contain' style={styles.added_photo}></Image>
 
                         :
-                        <Image resizeMode="contain" source={require('../assets/Mainpage/photoadd.png')} style={styles.photoadd_style}></Image>
+                                    <Image resizeMode="contain" source={require('../assets/Mainpage/photoadd.png')} style={styles.photoadd_style}></Image>
                         }
                     </TouchableOpacity>
 
@@ -213,10 +452,10 @@ export default class MainScreen extends React.Component {
                             }}>
                             {this.props.screenProps.hateImageUri ?
 
-                                <Image source={{ uri: this.props.screenProps.hateImageUri }} resizeMode='contain' style={styles.added_photo} ></Image>
+                                    <Image source={{ uri: this.props.screenProps.hateImageUri }} resizeMode='contain' style={styles.added_photo} ></Image>
 
                                 :
-                                <Image resizeMode="contain" source={require('../assets/Mainpage/photoadd.png')} style={styles.photoadd_style}></Image>
+                                    <Image resizeMode="contain" source={require('../assets/Mainpage/photoadd.png')} style={styles.photoadd_style}></Image>
                             }                        
                         </TouchableOpacity>
 
@@ -275,9 +514,26 @@ const styles = StyleSheet.create({
         marginLeft:width*0.02,
         marginBottom:height*0.31,
     },
+    double_inputimage_area: {
+        marginBottom: height * 0.31,
+        flexDirection:'row',
+    },
+    right_cropimage_style:{
+        width: height * 0.2,
+        height: height * 0.2,
+        borderRadius: 400 / 2,
+        marginLeft:width*0.02,
+    },
+    left_cropimage_style:{
+        width: height * 0.2,
+        height: height * 0.2,
+        borderRadius: 400 / 2,
+        marginRight: width * 0.02,
+
+    },
     mainpagebottom:{
         height:height*0.1,
-        backgroundColor:"#454552",
+        backgroundColor:"#e85a71",
         flexDirection: 'row',
         justifyContent:'space-between',
         alignItems:'center',
@@ -289,7 +545,7 @@ const styles = StyleSheet.create({
     mainbottom_lefttext:{
         fontSize: width*0.12, 
         fontFamily: 'DungGeunMo', 
-        color:'#e85a71',
+        color:'#fff',
     },
     mainbottom_righttext:{
         fontSize: width * 0.12,
@@ -311,7 +567,7 @@ const styles = StyleSheet.create({
         alignItems:'center',
     },
     photopic_middle:{
-        backgroundColor:'#454552',
+        backgroundColor:'#444f59',
         flex:1,
         alignItems:'center',
         justifyContent:'center',
@@ -359,15 +615,49 @@ const styles = StyleSheet.create({
 
     ///////////////////////대사 부분
     random_mention:{
-        color:'black',
-        fontSize:50,
+        color:'#444f59',
+        fontSize:width*0.06,
+        fontFamily:'Jalnan',
+        lineHeight: height * 0.04,
+        letterSpacing:width*0.02,
     },
     mention_area:{
-        borderWidth:10,
-        borderColor:'black',
-        marginTop:height*0.15,
+        // borderWidth:10,
+        // borderColor:'black',
+        marginTop:height*0.14,
         width: width*0.55,
         marginLeft:width*0.225,
         alignItems:'center'
-    }
+    },
+    random_mention_one: {
+        color: '#444f59',
+        fontSize: width * 0.04,
+        fontFamily: 'Jalnan',
+        lineHeight: height * 0.04,
+        letterSpacing: width * 0.02,
+    },
+    random_mention_two:{
+        color: '#444f59',
+        fontSize: width * 0.05,
+        fontFamily: 'Jalnan',
+        lineHeight: height * 0.04,
+        letterSpacing: width * 0.02,
+    },
+    mention_area_one:{
+
+        marginTop: height * 0.14,
+        width: width * 0.7,
+        marginLeft: width * 0.17,
+        alignItems: 'center',
+        height: height*0.04,
+    },
+    mention_area_two:{
+  
+        marginTop: height *0.11,
+        width: width * 0.5,
+        height: height * 0.04,
+        marginLeft: width * 0.40,
+        alignItems: 'center'
+    },
+
 });
