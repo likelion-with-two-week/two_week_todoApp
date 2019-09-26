@@ -187,7 +187,7 @@ export default class App extends React.Component {
     for (const i of this.state.todos) {
       if (i.deadline + 20000 <= overchecktime.getTime()  ){
         if (i.iscomplete === true) {
-          console.log("얘는 성공한 애입니다", i)
+          // console.log("얘는 성공한 애입니다", i)
           delete_success_index = update_todos.findIndex((element)=>{ return element.deadline === i.deadline})
           plus_score = plus_score + 2
           success_item = success_item + 1
@@ -195,14 +195,14 @@ export default class App extends React.Component {
 
         }
         else { //86400000이 하루 기준 초
-          console.log("얘는 실패한 애입니다", i.title)
-          console.log(update_todos, "index찾아오는 todolist입니다")
+          // console.log("얘는 실패한 애입니다", i.title)
+          // console.log(update_todos, "index찾아오는 todolist입니다")
           delete_fail_index = update_todos.findIndex((element) => { return element.deadline === i.deadline })
-          console.log("그래서 실패한 애의 index를 찾고있습니다", delete_fail_index)
+          // console.log("그래서 실패한 애의 index를 찾고있습니다", delete_fail_index)
           minus_score = minus_score +2
           fail_item = fail_item +1
           update_todos.splice(delete_fail_index, 1)
-          console.log(update_todos,"@@@@@@@@@@@@얘는 사삭제하고 난 뒤에 @@@@@@@@@@@@@@@")
+          // console.log(update_todos,"@@@@@@@@@@@@얘는 사삭제하고 난 뒤에 @@@@@@@@@@@@@@@")
         }
         next_flag = true
       }
@@ -361,7 +361,7 @@ export default class App extends React.Component {
     /////////////////////////////
     // console.log("state가 가진 todo check" , this.state.todos)
     // console.log(this.state.MainScore)
-    console.log(this.state.MainScore)
+    // console.log(this.state.MainScore)
     return (
 
       <SafeAreaView style = {styles.main_background}>
