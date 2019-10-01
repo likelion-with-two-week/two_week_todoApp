@@ -24,7 +24,7 @@
       "**/*"
     ],
     "android":{
-      "package" : "perpet.twoweeks.todolove",
+      "package" : "twoweeks.perpet.todolove",
       "icon":"./assets/icon.png",
       "adaptiveIcon":{
         "backgroundColor": "#ffffff"

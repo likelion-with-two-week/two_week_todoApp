@@ -1,8 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView,ImageBackground, TextInput, FlatList, TouchableOpacity,Image,Dimensions } from 'react-native';
-import { MaterialIcons, MaterialCommunityIcons,AntDesign } from '@expo/vector-icons';
+import { StyleSheet, Text, View, SafeAreaView,ImageBackground, TextInput,  TouchableOpacity,Image,Dimensions } from 'react-native';
+import { MaterialCommunityIcons,AntDesign } from '@expo/vector-icons';
 import * as Font from 'expo-font';
-import TodoItem from './TodoItem'
 const { height, width } = Dimensions.get('window')
 
 export default class MainScreen extends React.Component {
@@ -27,41 +26,30 @@ export default class MainScreen extends React.Component {
     
     
     render(){
-        // console.log("넘어오는 random_flag",this.props.screenProps.random_flag)
         const temp_flag = this.props.screenProps.random_flag
         let param_tag 
-        // console.log(this.props.screenProps.normal_mention)
+
+        // 1,2,3 : 50퍼 4,5,6, : 75퍼 7,8,9 : 25퍼
         if(temp_flag===1){
             param_tag = (<ImageBackground resizeMode='contain' source={require('../assets/Mainpage/50퍼1.png')} style={styles.image_background}>
                 <View style={styles.mention_area}>
                     {this.state.fontLoaded? 
                         <Text style={styles.random_mention}>{this.props.screenProps.userName}{this.props.screenProps.normal_mention[Math.floor(Math.random() * 3)]}</Text>
-                    :
+                        :
                         null
                     }
-                   
                 </View>
-
                 <SafeAreaView style={styles.character_area}>
-
-
                     <View style={styles.inputimage_area}>
                         <TouchableOpacity
                             onPress={() => {
                                 this.props.screenProps.selectImage()
-
                             }}>
                             {this.props.screenProps.mainImageUri ?
                                 <Image source={{ uri: this.props.screenProps.mainImageUri }} resizeMode='contain' style={styles.cropimage_style} /> :
                                 <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
-
                         </TouchableOpacity>
                     </View>
-                    {/* { this.state.fontLoaded ? 
-                            <Text style={{ color:"white", fontSize: 50, fontFamily: 'DungGeunMo', }}> Main Page가 될 예정입니다.</Text>
-                    : null
-                } */}
-
                 </SafeAreaView>
             </ImageBackground>)
         }else if(temp_flag ===2){
@@ -73,20 +61,15 @@ export default class MainScreen extends React.Component {
                         null
                     }
                 </View>
-
                 <SafeAreaView style={styles.character_area}>
-
-
                     <View style={styles.inputimage_area}>
                         <TouchableOpacity
                             onPress={() => {
                                 this.props.screenProps.selectImage()
-
                             }}>
                             {this.props.screenProps.mainImageUri ?
                                 <Image source={{ uri: this.props.screenProps.mainImageUri }} resizeMode='contain' style={styles.cropimage_style} /> :
                                 <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
-
                         </TouchableOpacity>
                     </View>
                 </SafeAreaView>
@@ -100,10 +83,7 @@ export default class MainScreen extends React.Component {
                         null
                     }
                 </View>
-
                 <SafeAreaView style={styles.character_area}>
-
-
                     <View style={styles.inputimage_area}>
                         <TouchableOpacity
                             onPress={() => {
@@ -127,20 +107,15 @@ export default class MainScreen extends React.Component {
                         null
                     }
                 </View>
-
                 <SafeAreaView style={styles.character_area}>
-
-
                     <View style={styles.inputimage_area}>
                         <TouchableOpacity
                             onPress={() => {
                                 this.props.screenProps.selectImage()
-
                             }}>
                             {this.props.screenProps.mainImageUri ?
                                 <Image source={{ uri: this.props.screenProps.mainImageUri }} resizeMode='contain' style={styles.cropimage_style} /> :
                                 <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
-
                         </TouchableOpacity>
                     </View>
                 </SafeAreaView>
@@ -154,20 +129,15 @@ export default class MainScreen extends React.Component {
                         null
                     }
                 </View>
-
                 <SafeAreaView style={styles.character_area}>
-
-
                     <View style={styles.inputimage_area}>
                         <TouchableOpacity
                             onPress={() => {
                                 this.props.screenProps.selectImage()
-
                             }}>
                             {this.props.screenProps.mainImageUri ?
                                 <Image source={{ uri: this.props.screenProps.mainImageUri }} resizeMode='contain' style={styles.cropimage_style} /> :
                                 <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
-
                         </TouchableOpacity>
                     </View>
                 </SafeAreaView>
@@ -181,20 +151,15 @@ export default class MainScreen extends React.Component {
                         null
                     }
                 </View>
-
                 <SafeAreaView style={styles.character_area}>
-
-
                     <View style={styles.inputimage_area}>
                         <TouchableOpacity
                             onPress={() => {
                                 this.props.screenProps.selectImage()
-
                             }}>
                             {this.props.screenProps.mainImageUri ?
                                 <Image source={{ uri: this.props.screenProps.mainImageUri }} resizeMode='contain' style={styles.cropimage_style} /> :
                                 <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
-
                         </TouchableOpacity>
                     </View>
                 </SafeAreaView>
@@ -205,7 +170,6 @@ export default class MainScreen extends React.Component {
                 <View style={styles.mention_area_one}>
                     {this.state.fontLoaded ?
                             <Text style={styles.random_mention_one}>{this.props.screenProps.bad_mention[temp_bad_ele]}</Text>
-
                         :
                         null
                     }
@@ -217,32 +181,23 @@ export default class MainScreen extends React.Component {
                         null
                     }
                 </View>
-               
-
                 <SafeAreaView style={styles.character_area}>
-
-
                     <View style={styles.double_inputimage_area}>
                         <TouchableOpacity
                             onPress={() => {
                                 this.props.screenProps.selectImage()
-
                             }}>
                             {this.props.screenProps.mainImageUri ?
                                 <Image source={{ uri: this.props.screenProps.mainImageUri }} resizeMode='contain' style={styles.left_cropimage_style} /> :
                                 <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
-
                         </TouchableOpacity>
-
                         <TouchableOpacity
                             onPress={() => {
                                 this.props.screenProps.selectHateImage()
-
                             }}>
                             {this.props.screenProps.hateImageUri ?
                                 <Image source={{ uri: this.props.screenProps.hateImageUri }} resizeMode='contain' style={styles.right_cropimage_style} /> :
                                 <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
-
                         </TouchableOpacity>
                     </View>
                 </SafeAreaView>
@@ -254,7 +209,6 @@ export default class MainScreen extends React.Component {
                 <View style={styles.mention_area_one}>
                     {this.state.fontLoaded ?
                         <Text style={styles.random_mention_one}>{this.props.screenProps.bad_mention[temp_bad_ele]}</Text>
-
                         :
                         null
                     }
@@ -266,31 +220,23 @@ export default class MainScreen extends React.Component {
                         null
                     }
                 </View>
-
                 <SafeAreaView style={styles.character_area}>
-
-
                     <View style={styles.double_inputimage_area}>
                         <TouchableOpacity
                             onPress={() => {
                                 this.props.screenProps.selectImage()
-
                             }}>
                             {this.props.screenProps.mainImageUri ?
                                 <Image source={{ uri: this.props.screenProps.mainImageUri }} resizeMode='contain' style={styles.left_cropimage_style} /> :
                                 <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
-
                         </TouchableOpacity>
-
                         <TouchableOpacity
                             onPress={() => {
                                 this.props.screenProps.selectHateImage()
-
                             }}>
                             {this.props.screenProps.hateImageUri ?
                                 <Image source={{ uri: this.props.screenProps.hateImageUri }} resizeMode='contain' style={styles.right_cropimage_style} /> :
                                 <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
-
                         </TouchableOpacity>
                     </View>
                 </SafeAreaView>
@@ -302,7 +248,6 @@ export default class MainScreen extends React.Component {
                 <View style={styles.mention_area_one}>
                     {this.state.fontLoaded ?
                         <Text style={styles.random_mention_one}>{this.props.screenProps.bad_mention[temp_bad_ele]}</Text>
-
                         :
                         null
                     }
@@ -314,38 +259,28 @@ export default class MainScreen extends React.Component {
                         null
                     }
                 </View>
-
                 <SafeAreaView style={styles.character_area}>
-
-
                     <View style={styles.double_inputimage_area}>
                         <TouchableOpacity
                             onPress={() => {
                                 this.props.screenProps.selectImage()
-
                             }}>
                             {this.props.screenProps.mainImageUri ?
                                 <Image source={{ uri: this.props.screenProps.mainImageUri }} resizeMode='contain' style={styles.left_cropimage_style} /> :
                                 <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
-
                         </TouchableOpacity>
-
                         <TouchableOpacity
                             onPress={() => {
                                 this.props.screenProps.selectHateImage()
-
                             }}>
                             {this.props.screenProps.hateImageUri ?
                                 <Image source={{ uri: this.props.screenProps.hateImageUri }} resizeMode='contain' style={styles.right_cropimage_style} /> :
                                 <MaterialCommunityIcons name={"account-box-outline"} size={width * 0.25} color="white" />}
-
                         </TouchableOpacity>
-
                     </View>
                 </SafeAreaView>
             </ImageBackground>)
         }
-
     return (
         
         // console.log('TodoItem compo 안에 넘어오는지 확인', name),
@@ -359,8 +294,6 @@ export default class MainScreen extends React.Component {
                     <TouchableOpacity
                         onPress={() => {
                             this.props.navigation.navigate('TodoListScreen')
-                            
-                                      
                         }}>
 
                         {this.state.fontLoaded ?
@@ -379,45 +312,33 @@ export default class MainScreen extends React.Component {
                             this.props.screenProps.addMethod
                             this.props.navigation.navigate('AddScreen')
                         }}>
-
                     <AntDesign name="plussquareo" size={width*0.09} color="white" />
                     </TouchableOpacity>
                 </SafeAreaView>
             </SafeAreaView> 
-            
             </SafeAreaView>
             )  
-            
             : (
-                // console.log("여긴 거쳐가냐"),
-            
+
+            // 여기는 처음에 사진 등록이 안되어있거나 만약에 우리가 설정한 좋아하는 사진이랑 싫어하는 사진에 대한 data가 없으면 뜨는 screen입니다.
             <View style ={styles.mainscreen_background}>
-
                 <SafeAreaView style={styles.firstpic_like}>
-
                     <TouchableOpacity
                             onPress={() => {
                                 this.props.screenProps.selectImage()
                             }}>
                         {this.props.screenProps.mainImageUri?
-                            
                                 <Image source={{ uri: this.props.screenProps.mainImageUri }} resizeMode='contain' style={styles.added_photo}></Image>
-
                         :
                                     <Image resizeMode="contain" source={require('../assets/Mainpage/photoadd.png')} style={styles.photoadd_style}></Image>
                         }
                     </TouchableOpacity>
-
                         {this.state.fontLoaded ?
                             <Text style={styles.photoaddtext}>여러분이 가장 좋아하는 사람의 사진</Text>
                             : null
                         }
-
                 </SafeAreaView>
                         <View style={styles.photopic_middle}>
-                           
-
-
                                 <View style={styles.continue_box}>
                                     {this.state.fontLoaded ?
                     
@@ -451,9 +372,7 @@ export default class MainScreen extends React.Component {
                                 this.props.screenProps.selectHateImage()
                             }}>
                             {this.props.screenProps.hateImageUri ?
-
                                     <Image source={{ uri: this.props.screenProps.hateImageUri }} resizeMode='contain' style={styles.added_photo} ></Image>
-
                                 :
                                     <Image resizeMode="contain" source={require('../assets/Mainpage/photoadd.png')} style={styles.photoadd_style}></Image>
                             }                        
@@ -463,23 +382,15 @@ export default class MainScreen extends React.Component {
                             <Text style ={styles.photoaddtext}>여러분이 피하고 싶은 것</Text>
                             : null
                         }
-
                 </SafeAreaView>
-               
             </View>
-            
             )
-            
             }
-
         </SafeAreaView>
     )
 
 }
 }
-
-
-
 
 
 

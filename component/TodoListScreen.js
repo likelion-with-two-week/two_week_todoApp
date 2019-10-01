@@ -1,7 +1,6 @@
 
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TextInput, FlatList, TouchableOpacity, Image,Dimensions } from 'react-native';
-import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { StyleSheet, Text, View, SafeAreaView,  FlatList,  Dimensions } from 'react-native';
 
 import BackHeader from './BackHeader'
 const { height, width } = Dimensions.get('window')
@@ -42,14 +41,10 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fec8c9',
         justifyContent: 'center',
-        // borderWidth: 5,
-        // borderColor: 'red',
+
     },
     //Todo 지역 내의 Todo List가 랜더링 되는 부분을 구분하는 box
     todo_list_box: {
-        // borderWidth: 3,
-        // borderColor: 'green',
-       
         flex: 3,
     },
     todolist_container: {

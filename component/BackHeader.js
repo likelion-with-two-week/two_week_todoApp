@@ -1,9 +1,6 @@
-//EditHeader.js
-
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet,SafeAreaView,Text,Dimensions } from 'react-native'
+import {  TouchableOpacity, StyleSheet,SafeAreaView,Text,Dimensions } from 'react-native'
 import { withNavigation } from 'react-navigation'
-import { Ionicons } from '@expo/vector-icons';
 
 const { height, width } = Dimensions.get('window')
 

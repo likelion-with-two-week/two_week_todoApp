@@ -1,30 +1,21 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TextInput, FlatList, TouchableOpacity,Dimensions } from 'react-native';
-import { MaterialIcons, MaterialCommunityIcons, } from '@expo/vector-icons';
+import { StyleSheet, Text,  SafeAreaView,   TouchableOpacity,Dimensions } from 'react-native';
+import {  MaterialCommunityIcons, } from '@expo/vector-icons';
 
 const { height, width } = Dimensions.get('window')
 
 export default class TodoItem extends React.Component {
-    // { name, isComplete, changeComplete, deleteItem }
 
     render(){
         return (
-            // console.log('TodoItem compo 안에 넘어오는지 확인', name),
 
             <SafeAreaView style={styles.render_todoList}>
-                <SafeAreaView >
-                    {/* <TouchableOpacity
-                        onPress={this.props.deleteItem}>
-                        <MaterialCommunityIcons name="delete-empty" size={30} />
-
-                    </TouchableOpacity> */}
-                
+                <SafeAreaView>
+                 
                     {this.props.isComplete ?
                         <Text style={styles.todo_time_complete}>{this.props.starthour}:{this.props.startminutes}→</Text>
-
                         :
                         <Text style={styles.todo_time}>{this.props.starthour}:{this.props.startminutes}→</Text>
-
                     }
                 </SafeAreaView>
 
@@ -47,19 +38,13 @@ export default class TodoItem extends React.Component {
                     <TouchableOpacity
                         onPress={() => {
                             this.props.changeComplete()
-                            // this.props.navigation.navigate("Todocomplete")
-                            // setTimeout(this.props.avigation.navigate("TodoListScreen"), 3000)
                         }
                         }
 
                     >
                         <MaterialCommunityIcons name={'checkbox-blank-outline'} size={width * 0.13} color="#444f59" />
-                    </TouchableOpacity>
-                    
-                    
-                    
-                }
-               
+                    </TouchableOpacity>                    
+                }  
                 
             </SafeAreaView>
         )

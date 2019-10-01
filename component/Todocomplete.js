@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TextInput, FlatList, TouchableOpacity } from 'react-native';
-import { MaterialIcons, MaterialCommunityIcons, } from '@expo/vector-icons';
+import { StyleSheet,  SafeAreaView,    } from 'react-native';
 
 
 export default class Todocomplete extends React.Component {

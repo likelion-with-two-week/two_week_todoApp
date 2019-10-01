@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TextInput, FlatList, TouchableOpacity,Dimensions } from 'react-native';
-import { MaterialIcons, MaterialCommunityIcons,AntDesign } from '@expo/vector-icons';
+import { StyleSheet, Text, View, SafeAreaView, TextInput,  TouchableOpacity,Dimensions } from 'react-native';
 
 import BackHeader from './BackHeader';
 
@@ -9,7 +8,6 @@ const { height,width} = Dimensions.get('window')
 export default function AddTodo(props) {
 
     return (
-        // console.log('TodoItem compo 안에 넘어오는지 확인', name),
 
 
             <SafeAreaView style={styles.todo_add_box}>
@@ -34,10 +32,7 @@ export default function AddTodo(props) {
                                 props.navigation.navigate('MainScreen')
                                 }
                                 }>
-                        {/* <View style={styles.save_text_container_style}> */}
                             <Text style={styles.save_text_style}> >저장하기 </Text>
-                        {/* </View> */}
-                        {/* <AntDesign name={'form'} color="#d8e9ef"size={height*0.15} /> */}
                         </TouchableOpacity>
                     </SafeAreaView>
             </SafeAreaView>
@@ -69,8 +64,6 @@ const styles = StyleSheet.create({
         color:'#444f59',
     },
     input_and_icon:{
-        // borderWidth:5,
-        // flexDirection:'col',
         height:height*0.4,
         alignItems:'center',
         justifyContent:'space-around',
@@ -91,20 +84,7 @@ const styles = StyleSheet.create({
         fontFamily: 'DungGeunMo',
         color: 'white',
     },
-    // save_text_container_style:{
-    //     paddingLeft: width * 0.03,
-    //     paddingRight: width * 0.02,
-
-    //     height: height / 12,
-    //     width: width * 0.5,
-    //     borderTopWidth: 3,
-    //     borderBottomWidth: 7,
-    //     borderLeftWidth: 3,
-    //     borderRightWidth: 5,
-    //     borderColor: '#d8e9ef',
-    //     alignItems:'center',
-    //     justifyContent:'center',
-    // },
+   
     save_text_style:{
 
         color:"#444f59",
