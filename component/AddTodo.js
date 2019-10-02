@@ -29,7 +29,7 @@ export default function AddTodo(props) {
                         <TouchableOpacity
                             onPress={   ()=>{
                                 props.screenProps.savemethod()
-                                props.navigation.navigate('MainScreen')
+                                props.navigation.navigate('TodoListScreen')
                                 }
                                 }>
                             <Text style={styles.save_text_style}> >저장하기 </Text>

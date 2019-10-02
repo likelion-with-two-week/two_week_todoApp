@@ -12,6 +12,7 @@ import MainScreen from './component/MainScreen';
 import TodoListScreen from './component/TodoListScreen';
 import Todocomplete from './component/Todocomplete';
 import { AsyncStorage } from 'react-native';
+import { Notifications } from 'expo';
 
 
 
@@ -41,7 +42,7 @@ const AddNavi = createStackNavigator(
 )
 
 const MainNavi = createAppContainer(AddNavi)
-
+  
 
 export default class App extends React.Component {
 
@@ -59,9 +60,11 @@ export default class App extends React.Component {
 //클리어도 하나 넣어주자 .clear()
   async componentDidMount() {
     await this._getData()
+    // AsyncStorage.clear()
     this._checkScore()
 
     this._overTimer()
+
     setInterval(this._overTimer,10000)
   }
 
@@ -86,20 +89,20 @@ export default class App extends React.Component {
 
       hate_imageUri:'',
       normal_mention:[
-        '씨 반가워요! 우리 같은 팀이죠? 잘 부탁해요. 오늘 할 일은 뭔가요?',
-        '씨 오늘 할 일 하셨어요?? 모두 완료하시려면 서둘러야겠어요!',
-        '씨 오늘 할 일은 더 없는 거예요? 수고 많으셨어요!!',
+        '씨 반가워요! \n우리 같은 팀이죠? 잘 부탁해요. \n오늘 할 일은 뭔가요?',
+        '씨 \n 오늘 할 일 하셨어요?? 모두 완료하시려면 서둘러야겠어요!',
+        '씨 \n오늘 할 일은 더 없는 거예요? \n수고 많으셨어요!!',
       ],
       good_mention:[
-        '! 오늘도 좋은 하루야, 오늘 할 일 나랑 같이할래?',
-        '! 오늘 할 일 빨리하고 내 거 좀 도와주라♡ 응???',
-        '! 오늘 할 일 빨리 끝내고 나랑 놀러 가자~',
+        '! \n오늘도 좋은 하루야, \n오늘 할 일 나랑 같이할래?',
+        '! \n오늘 할 일 빨리하고 \n내 거 좀 도와주라♡ 응???',
+        '! \n오늘 할 일 빨리 끝내고 \n나랑 놀러 가자~',
       ],
       bad_mention:[
-        ' 오늘부터 같이 일하게 된 제 친구예요', '너 진짜 성실하다~?                    ', '남은 할 일 좀 빨리해주세요         ',
+        ' 오늘부터 \n같이 일하게 된 제 친구예요', '너 진짜 성실하다~?', '남은 할 일 좀 빨리해주세요 ',
       ],
       bad_mention_two:[
-        '아.. 안녕하세요...?', '에이 뭐 이런걸가지고', '우리 빨리 가야 한단 말이에요!',
+        '아.. \n안녕하세요...?', '에이 \n뭐 이런걸가지고', '우리 빨리 가야 한단 말이에요!',
       ],
     
     }
@@ -156,7 +159,7 @@ export default class App extends React.Component {
     let update_todos = [...this.state.todos]
     
     for (const i of this.state.todos) {
-      if (i.deadline + 15000 <= overchecktime.getTime()  ){
+      if (i.deadline + 86400000 <= overchecktime.getTime()  ){
         if (i.iscomplete === true) {
           // console.log("얘는 성공한 애입니다", i)
           delete_success_index = update_todos.findIndex((element)=>{ return element.deadline === i.deadline})
@@ -196,7 +199,7 @@ export default class App extends React.Component {
 
         const reverseTodo = [...this.state.todos]
         const prevSuccess = [...this.state.success_todos]
-        if ((nowtime.getTime() - item.deadline) <= 10000) { //24시간을 환산하면 86400000
+        if ((nowtime.getTime() - item.deadline) <= 86400000) { //24시간을 환산하면 86400000
           
           reverseTodo[index].iscomplete = !reverseTodo[index].iscomplete
           
@@ -309,7 +312,7 @@ export default class App extends React.Component {
             good_mention : this.state.good_mention,
             Main_score : this.state.MainScore,
             random_flag: this.state.random_flag,
-        
+            changeScreen: this._checkScore,
           }}
             />
       </SafeAreaView>

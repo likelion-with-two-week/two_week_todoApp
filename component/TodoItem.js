@@ -59,33 +59,35 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'space-between',
         marginBottom:height*0.03,
-        padding:width*0.035,
+        padding:width*0.04,
+        // borderColor:'green',
+        // borderWidth:5,
     },
     todoItemText:{
-        fontSize:width*0.07,
+        fontSize:width*0.06,
         fontFamily:'DungGeunMo',
     },
     todoItemText_complete:{
         textDecorationLine: 'line-through', 
         textDecorationStyle: 'solid' ,
-        fontSize: width * 0.07,
+        fontSize: width * 0.06,
         fontFamily: 'DungGeunMo',
         color:'#444f59',
         },
     todo_time:{
-        fontSize: width * 0.07,
+        fontSize: width * 0.06,
         fontFamily: 'DungGeunMo',
     },
     todo_time_complete:{
         textDecorationLine: 'line-through',
         textDecorationStyle: 'solid',
-        fontSize: width * 0.07,
+        fontSize: width * 0.06,
         fontFamily: 'DungGeunMo',
         color: '#444f59',
     },
     todoList_textBox:{
         overflow:"scroll",
-        width:width*0.6,
+        width:width*0.4,
         marginLeft:width*0.03,
         marginRight: width * 0.02
     }

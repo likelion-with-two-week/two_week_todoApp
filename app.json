@@ -9,7 +9,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -24,7 +24,7 @@
       "**/*"
     ],
     "android":{
-      "package" : "twoweeks.perpet.todolove",
+      "package" : "perpet.twoweeks.todolove",
       "icon":"./assets/icon.png",
       "adaptiveIcon":{
         "backgroundColor": "#ffffff"

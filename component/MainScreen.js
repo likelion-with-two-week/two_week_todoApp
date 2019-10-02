@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, SafeAreaView,ImageBackground, TextInput,  TouchableOpacity,Image,Dimensions } from 'react-native';
-import { MaterialCommunityIcons,AntDesign } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as Font from 'expo-font';
 const { height, width } = Dimensions.get('window')
 
@@ -287,8 +287,13 @@ export default class MainScreen extends React.Component {
         <SafeAreaView style = {styles.mainscreen_background}>
             {this.props.screenProps.hateImageUri && this.props.screenProps.mainImageUri && this.props.screenProps.myusername? 
             (
+            
             <SafeAreaView style = {styles.mainscreen_background_image_container}>
+                <TouchableOpacity
+                    onPress =  {this.props.screenProps.changeScreen}
+                    style={styles.touchscreen_container}>
                         {param_tag}
+                </TouchableOpacity>
             <SafeAreaView style = {styles.mainpagebottom}>
                 <SafeAreaView>
                     <TouchableOpacity
@@ -298,23 +303,15 @@ export default class MainScreen extends React.Component {
 
                         {this.state.fontLoaded ?
                             <View style = {styles.mainbottomtext_container}>
-                                <Text style={styles.mainbottom_lefttext}>> ToDo</Text> 
-                                <Text style={styles.mainbottom_righttext}> List♥</Text>
+                                <Text style={styles.mainbottom_lefttext}>{'>>> ToDo'}</Text> 
+                                <Text style={styles.mainbottom_righttext}>{'List <<<'}</Text>
                             </View>
                             : null
                         }                
                     </TouchableOpacity>
                 </SafeAreaView>
 
-                <SafeAreaView>
-                    <TouchableOpacity
-                        onPress={() => {
-                            this.props.screenProps.addMethod
-                            this.props.navigation.navigate('AddScreen')
-                        }}>
-                    <AntDesign name="plussquareo" size={width*0.09} color="white" />
-                    </TouchableOpacity>
-                </SafeAreaView>
+               
             </SafeAreaView> 
             </SafeAreaView>
             )  
@@ -423,7 +420,7 @@ const styles = StyleSheet.create({
     },
     inputimage_area:{
         marginLeft:width*0.02,
-        marginBottom:height*0.31,
+        marginBottom:height*0.325,
     },
     double_inputimage_area: {
         marginBottom: height * 0.31,
@@ -443,23 +440,33 @@ const styles = StyleSheet.create({
 
     },
     mainpagebottom:{
-        height:height*0.1,
+        height:height*0.075,
         backgroundColor:"#e85a71",
         flexDirection: 'row',
-        justifyContent:'space-between',
         alignItems:'center',
         paddingHorizontal:width*0.05,
+        justifyContent:'center',
     },
     mainbottomtext_container:{
         flexDirection:'row',
+        // borderWidth:3,
+        justifyContent:'space-between',
+        width:width*0.7,
+
     },
     mainbottom_lefttext:{
-        fontSize: width*0.12, 
+        // borderWidth: 2,
+        // borderColor:'green',
+        fontSize: width*0.10, 
         fontFamily: 'DungGeunMo', 
         color:'#fff',
+        fontWeight: '100',
     },
     mainbottom_righttext:{
-        fontSize: width * 0.12,
+        // borderWidth: 2,
+        // borderColor: 'yellow',
+        fontWeight:'100',
+        fontSize: width * 0.10,
         fontFamily: 'DungGeunMo', 
         color:'white',
     },
@@ -530,7 +537,8 @@ const styles = StyleSheet.create({
         fontSize:width*0.045,
         fontFamily:'Jalnan',
         lineHeight: height * 0.04,
-        letterSpacing:width*0.01,
+        letterSpacing: -width * 0.001,
+        textAlign:'center',
     },
     mention_area:{
         // borderWidth:5,
@@ -540,36 +548,56 @@ const styles = StyleSheet.create({
         marginLeft:width*0.225,
         alignItems:'center',
         height:height*0.12,
+        // justifyContent:'center',
     },
     random_mention_one: {
         color: '#444f59',
         fontSize: width * 0.044,
         fontFamily: 'Jalnan',
         lineHeight: height * 0.04,
-        letterSpacing: width * 0.013,
+        textAlign:'center',
+        // letterSpacing: width * 0.013,
     },
     random_mention_two:{
         color: '#444f59',
         fontSize: width * 0.036,
         fontFamily: 'Jalnan',
         lineHeight: height * 0.04,
-        letterSpacing: width * 0.003,
+        textAlign: 'center',
+
+        // letterSpacing: width * 0.003,
     },
     mention_area_one:{
-
+        // borderWidth:5,
         marginTop: height * 0.14,
         width: width * 0.7,
-        marginLeft: width * 0.17,
+        marginLeft: width * 0.15,
         alignItems: 'center',
-        height: height*0.04,
+        // height: height*0.04,
+        //아래 height를 고정해놓음으로써 두번째 mention_area부분의 위치를 잡아줄수 있다.
+        height: height * 0.06,
+        justifyContent:'center',
+        // borderWidth: 3,
     },
     mention_area_two:{
-  
-        marginTop: height *0.11,
+        // borderWidth: 3,
+
+        // marginTop: height *0.095,
+
+        //아래 세줄은 갤럭시 s10e 를 기준으로 textbox안에 가운데 정렬을 하기위해
+        //height도 고정시켜 놓고 justifyContent도 설정한 모습
+        marginTop: height * 0.076,
+        justifyContent:'center',
+        height:height*0.08,
+
         width: width * 0.5,
-        height: height * 0.04,
-        marginLeft: width * 0.37,
-        alignItems: 'center'
+        // height: height * 0.04,
+        marginLeft: width * 0.36,
+        alignItems: 'center',
     },
 
+    // //////////////////
+    touchscreen_container:{
+        flex:1,
+    },
 });
