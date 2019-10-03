@@ -1,5 +1,8 @@
 {
   "expo": {
+    "notification": {
+      "icon": "./assets/test.png"
+    },
     "name": "twoWeekTodo",
     "slug": "twoWeekTodo",
     "privacy": "public",

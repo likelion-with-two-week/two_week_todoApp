@@ -13,8 +13,21 @@ import TodoListScreen from './component/TodoListScreen';
 import Todocomplete from './component/Todocomplete';
 import { AsyncStorage } from 'react-native';
 import { Notifications } from 'expo';
+import * as Permissions from 'expo-permissions';
+
+import * as BackgroundFetch from 'expo-background-fetch';
+import * as TaskManager from 'expo-task-manager';
 
 
+TaskManager.defineTask("noticheck", () => {
+  try {
+      console.log("동작중입니다  이 시간에: ",new Date())
+  } catch (error) {
+    console.log("fail!")
+  }
+});
+
+TaskManager.isTaskRegisteredAsync("noticheck")
 
 const AddNavi = createStackNavigator(
   {
@@ -46,6 +59,50 @@ const MainNavi = createAppContainer(AddNavi)
 
 export default class App extends React.Component {
 
+
+
+
+  askPermissions = async () => {
+    const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+    let finalStatus = existingStatus;
+
+    if (existingStatus !== 'granted') {
+      const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+      finalStatus = status;
+
+    }
+    if (finalStatus !== 'granted') {
+      return false;
+    }
+    return true;
+  };
+
+
+// _sendNotificationImmediately = async () => {
+//   let notification_Id = await Notifications.presentLocalNotificationAsync({
+//     title: '환영합니다!',
+//     body: '계속 열심히해주세요~',
+
+//   });
+  // console.log(notification_Id); // can be saved in AsyncStorage or send to server
+// };
+
+
+//주기적으로 local noti를 보내기위해서 설정해줘야하는 것
+  // scheduleNotification = async () => {
+  //   let notificationId = await Notifications.scheduleLocalNotificationAsync(
+  //     {
+  //       title: new Date().toString(),
+  //       body: '아마도 당신은 투두를 다 안했을껄?',
+  //     },
+  //     {
+  //       repeat: 'minute',
+  //       time: new Date().getTime() + 10000,
+  //     },
+  //   );
+  //   console.log(notificationId);
+  // };
+
   _storeData = async () => {
     await AsyncStorage.setItem('@todolove:state', JSON.stringify(this.state))
   }
@@ -66,7 +123,73 @@ export default class App extends React.Component {
     this._overTimer()
 
     setInterval(this._overTimer,10000)
+
+    this.askPermissions()
+
+    // this._noticheck()
+
+    // setInterval(this._noticheck,10000)
+    // this._sendNotificationImmediately()
+    // this.scheduleNotification()
+    
+    //모든 노티를 한번 정리해주자
+    // Notifications.cancelAllScheduledNotificationsAsync()
+    BackgroundFetch.registerTaskAsync("noticheck", options = { minimumInterval: 10, })
+
+
   }
+
+  //flag를 설정해서 interval을 돌아도 체크해버릴수있께 해주던지 setinterval을 먹여도 1번만 하게 설정하자
+
+  _noticheck = async () => { //6시간 : 21,600,000‬   , 12시간: 43,200,000‬
+    const temptime = new Date()
+    let notichange_todo = [...this.state.todos]
+    console.log("checking...")
+    for (const j of this.state.todos) {
+      if (j.deadline + 60000 <= temptime.getTime()) { // 18시간이 지난후 6시간 남았을때 64800000
+        if (j.noti_6h == false){
+
+          notiindex_6 = notichange_todo.findIndex((element) => { return element.deadline === j.deadline })
+
+          await Notifications.presentLocalNotificationAsync({
+            title: "Let's todo love",
+            body: j.title + ' 마감시간이 6시간 남았어요!',
+          });
+          notichange_todo[notiindex_6].noti_6h = true
+          this.setState({todos: notichange_todo},this._storeData) 
+          console.log("noticheck가 바뀌어서 이건 더 안돌아갈껄")
+          console.log("6시간남았음")
+        }
+        if (j.noti_6h === true){
+          continue;
+          console.log("안돌아가려는 발버둥-6")
+        }
+        
+      } else if (j.deadline + 10000 <= temptime.getTime()) { // 12시간이 지난후 12시간 남았을때 43200000
+        if (j.noti_12h == false) {
+
+          notiindex_12 = notichange_todo.findIndex((element) => { return element.deadline === j.deadline })
+
+          await Notifications.presentLocalNotificationAsync({
+            title: "Let's todo love",
+            body: j.title + ' 마감시간이 12시간 남았어요!',
+          });
+          notichange_todo[notiindex_12].noti_12h = true
+          this.setState({ todos: notichange_todo }, this._storeData)
+          console.log("12 시간 noti flag 바꿈")
+          console.log("12시간남았음")
+        }
+        if (j.noti_12h === true) {
+          continue;
+          console.log("안돌아가려는 발버둥-12")
+        }
+
+      }
+
+    }
+
+  }
+
 
 
   constructor(props){
@@ -120,7 +243,13 @@ export default class App extends React.Component {
         if (this.state.inputTodo !== '') {
           const tempdate = new Date()
         
-          const newTodo = { title: this.state.inputTodo, iscomplete: false, deadline: tempdate.getTime(), start_hour:tempdate.getHours(), start_minutes : tempdate.getMinutes()}
+          const newTodo = { title: this.state.inputTodo, 
+                            iscomplete: false, 
+                            deadline: tempdate.getTime(), 
+                            start_hour:tempdate.getHours(), 
+                            start_minutes : tempdate.getMinutes(),
+                            noti_6h:false,
+                            noti_12h:false,}
           this.setState({
             inputTodo: '',
             todos: prevTodo.concat(newTodo)
@@ -159,7 +288,7 @@ export default class App extends React.Component {
     let update_todos = [...this.state.todos]
     
     for (const i of this.state.todos) {
-      if (i.deadline + 86400000 <= overchecktime.getTime()  ){
+      if (i.deadline + 86400000 <= overchecktime.getTime()) { //24시간을 환산하면 86400000
         if (i.iscomplete === true) {
           // console.log("얘는 성공한 애입니다", i)
           delete_success_index = update_todos.findIndex((element)=>{ return element.deadline === i.deadline})
@@ -283,6 +412,7 @@ export default class App extends React.Component {
     }
   }
   render(){
+    // console.log(this.state.todos)
   
     return (
 
