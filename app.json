@@ -31,7 +31,8 @@
       "icon":"./assets/icon.png",
       "adaptiveIcon":{
         "backgroundColor": "#ffffff"
-      }
+      },
+      "versionCode": 2
     },
     "ios": {
       "supportsTablet": true

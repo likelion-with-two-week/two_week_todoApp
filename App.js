@@ -197,7 +197,7 @@ export default class App extends React.Component {
 
           await Notifications.presentLocalNotificationAsync({
             title: "Let's todo love",
-            body: ' <'+j.title + '> 마감시간이 6시간 남았어요!',
+            body: ' <'+ j.title + '> 마감시간이 6시간 남았어요!',
           });
           notichange_todo[notiindex_6].noti_6h = true
           this.setState({todos: notichange_todo},this._storeData) 
@@ -249,7 +249,7 @@ export default class App extends React.Component {
     if (prevTodo.length <= 2){
         if (this.state.inputTodo !== '') {
           const tempdate = new Date()
-        
+          
           const newTodo = { title: this.state.inputTodo, 
                             iscomplete: false, 
                             deadline: tempdate.getTime(), 
