@@ -420,10 +420,10 @@ const styles = StyleSheet.create({
     },
     inputimage_area:{
         marginLeft:width*0.02,
-        marginBottom:height*0.325,
+        marginBottom:height*0.3075,
     },
     double_inputimage_area: {
-        marginBottom: height * 0.31,
+        marginBottom: height * 0.295,
         flexDirection:'row',
     },
     right_cropimage_style:{

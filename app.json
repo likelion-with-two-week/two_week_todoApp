@@ -1,7 +1,7 @@
 {
   "expo": {
     "notification": {
-      "icon": "./assets/test.png"
+      "icon": "./assets/그레이아이콘.png"
     },
     "name": "twoWeekTodo",
     "slug": "twoWeekTodo",
@@ -12,7 +12,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.2",
+    "version": "1.0.4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {

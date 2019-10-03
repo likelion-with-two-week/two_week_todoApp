@@ -18,16 +18,17 @@ import * as Permissions from 'expo-permissions';
 import * as BackgroundFetch from 'expo-background-fetch';
 import * as TaskManager from 'expo-task-manager';
 
+// TaskManager.defineTask("noticheck", () => {
+//   try {
+//     console.log("동작중입니다  이 시간에: ", new Date())
+//     //App 내부에 있는 check method사용하고싶음
+//   } catch (error) {
+//     console.log("fail!")
+//   }
+// })
+// TaskManager.isTaskRegisteredAsync("noticheck")
 
-TaskManager.defineTask("noticheck", () => {
-  try {
-      console.log("동작중입니다  이 시간에: ",new Date())
-  } catch (error) {
-    console.log("fail!")
-  }
-});
 
-TaskManager.isTaskRegisteredAsync("noticheck")
 
 const AddNavi = createStackNavigator(
   {
@@ -58,6 +59,45 @@ const MainNavi = createAppContainer(AddNavi)
   
 
 export default class App extends React.Component {
+   constructor(props) {
+    super(props)
+    this.state = {
+      random_flag: 0,
+      inputname: '',
+      username: '',
+      MainScore: 50,  //Todo List의 check를 해서 score를 누적시켜서 우리가 하고자하는 사진과의 crop을 설정한다
+
+      imageUri: '',  //우리가 main 얼굴로 넣을 image를 선정한다
+
+      inputTodo: '',
+      todos: [
+
+      ],
+      success_todos: [
+
+      ],
+
+      hate_imageUri: '',
+      normal_mention: [
+        '씨 반가워요! \n우리 같은 팀이죠? 잘 부탁해요. \n오늘 할 일은 뭔가요?',
+        '씨 \n 오늘 할 일 하셨어요?? 모두 완료하시려면 서둘러야겠어요!',
+        '씨 \n오늘 할 일은 더 없는 거예요? \n수고 많으셨어요!!',
+      ],
+      good_mention: [
+        '! \n오늘도 좋은 하루야, \n오늘 할 일 나랑 같이할래?',
+        '! \n오늘 할 일 빨리하고 \n내 거 좀 도와주라♡ 응???',
+        '! \n오늘 할 일 빨리 끝내고 \n나랑 놀러 가자~',
+      ],
+      bad_mention: [
+        ' 오늘부터 \n같이 일하게 된 제 친구예요', '너 진짜 성실하다~?', '남은 할 일 좀 빨리해주세요 ',
+      ],
+      bad_mention_two: [
+        '아.. \n안녕하세요...?', '에이 \n뭐 이런걸가지고', '우리 빨리 가야 한단 말이에요!',
+      ],
+
+    }
+
+  }
 
 
 
@@ -122,62 +162,66 @@ export default class App extends React.Component {
 
     this._overTimer()
 
-    setInterval(this._overTimer,10000)
+    setInterval(this._overTimer,10000) //10초
 
     this.askPermissions()
 
-    // this._noticheck()
+    this._noticheck()
 
-    // setInterval(this._noticheck,10000)
+    setInterval(this._noticheck,5000)//5초
     // this._sendNotificationImmediately()
     // this.scheduleNotification()
     
     //모든 노티를 한번 정리해주자
     // Notifications.cancelAllScheduledNotificationsAsync()
-    BackgroundFetch.registerTaskAsync("noticheck", options = { minimumInterval: 10, })
+  
+    // setTimeout(BackgroundFetch.registerTaskAsync("noticheck"),20000)
+    //  BackgroundFetch.registerTaskAsync("noticheck")
 
 
   }
 
   //flag를 설정해서 interval을 돌아도 체크해버릴수있께 해주던지 setinterval을 먹여도 1번만 하게 설정하자
 
-  _noticheck = async () => { //6시간 : 21,600,000‬   , 12시간: 43,200,000‬
+  _noticheck = async () => { //6시간 : 21,600,000‬   , 12시간: 43,200,000‬ 
     const temptime = new Date()
     let notichange_todo = [...this.state.todos]
-    console.log("checking...")
+    // console.log("checking...")
+    // console.log(this.state.todos)
     for (const j of this.state.todos) {
-      if (j.deadline + 60000 <= temptime.getTime()) { // 18시간이 지난후 6시간 남았을때 64800000
+      // console.log("여기도 안들어오나?")
+      if (j.deadline + 64800000 <= temptime.getTime()) { // 18시간이 지난후 6시간 남았을때 64800000
         if (j.noti_6h == false){
 
           notiindex_6 = notichange_todo.findIndex((element) => { return element.deadline === j.deadline })
 
           await Notifications.presentLocalNotificationAsync({
             title: "Let's todo love",
-            body: j.title + ' 마감시간이 6시간 남았어요!',
+            body: ' <'+j.title + '> 마감시간이 6시간 남았어요!',
           });
           notichange_todo[notiindex_6].noti_6h = true
           this.setState({todos: notichange_todo},this._storeData) 
-          console.log("noticheck가 바뀌어서 이건 더 안돌아갈껄")
-          console.log("6시간남았음")
+          // console.log("noticheck가 바뀌어서 이건 더 안돌아갈껄")
+          // console.log("6시간남았음")
         }
         if (j.noti_6h === true){
           continue;
           console.log("안돌아가려는 발버둥-6")
         }
         
-      } else if (j.deadline + 10000 <= temptime.getTime()) { // 12시간이 지난후 12시간 남았을때 43200000
+      } else if (j.deadline + 43200000 <= temptime.getTime()) { // 12시간이 지난후 12시간 남았을때 43200000
         if (j.noti_12h == false) {
 
           notiindex_12 = notichange_todo.findIndex((element) => { return element.deadline === j.deadline })
 
           await Notifications.presentLocalNotificationAsync({
             title: "Let's todo love",
-            body: j.title + ' 마감시간이 12시간 남았어요!',
+            body: ' <' + j.title + '> 마감시간이 12시간 남았어요!',
           });
           notichange_todo[notiindex_12].noti_12h = true
           this.setState({ todos: notichange_todo }, this._storeData)
-          console.log("12 시간 noti flag 바꿈")
-          console.log("12시간남았음")
+          // console.log("12 시간 noti flag 바꿈")
+          // console.log("12시간남았음")
         }
         if (j.noti_12h === true) {
           continue;
@@ -192,44 +236,7 @@ export default class App extends React.Component {
 
 
 
-  constructor(props){
-    super(props)
-    this.state={
-      random_flag : 0,
-      inputname :'',
-      username :'',
-      MainScore : 50,  //Todo List의 check를 해서 score를 누적시켜서 우리가 하고자하는 사진과의 crop을 설정한다
 
-      imageUri:'',  //우리가 main 얼굴로 넣을 image를 선정한다
-
-      inputTodo : '',
-      todos:[
-       
-      ],
-      success_todos:[
-
-      ],
-
-      hate_imageUri:'',
-      normal_mention:[
-        '씨 반가워요! \n우리 같은 팀이죠? 잘 부탁해요. \n오늘 할 일은 뭔가요?',
-        '씨 \n 오늘 할 일 하셨어요?? 모두 완료하시려면 서둘러야겠어요!',
-        '씨 \n오늘 할 일은 더 없는 거예요? \n수고 많으셨어요!!',
-      ],
-      good_mention:[
-        '! \n오늘도 좋은 하루야, \n오늘 할 일 나랑 같이할래?',
-        '! \n오늘 할 일 빨리하고 \n내 거 좀 도와주라♡ 응???',
-        '! \n오늘 할 일 빨리 끝내고 \n나랑 놀러 가자~',
-      ],
-      bad_mention:[
-        ' 오늘부터 \n같이 일하게 된 제 친구예요', '너 진짜 성실하다~?', '남은 할 일 좀 빨리해주세요 ',
-      ],
-      bad_mention_two:[
-        '아.. \n안녕하세요...?', '에이 \n뭐 이런걸가지고', '우리 빨리 가야 한단 말이에요!',
-      ],
-    
-    }
-  }
 
   //input창 내에 Text가 체인지 되는것을 실시간으로 반영해주기 위한 부분
   _changeText = (value) => {
@@ -260,7 +267,7 @@ export default class App extends React.Component {
         }
     }
     else{
-      alert("TODOlist는 3개까지만 등록가능합니다!")
+      alert("ToDo list는 \n\n 3개까지만 등록가능합니다!")
       this.setState({
         inputTodo: '',
       })
@@ -308,7 +315,7 @@ export default class App extends React.Component {
       
     }
     if (next_flag){
-      alert("성공한 " + (success_item).toString() + "개의 Todo," + "실패한 " + (fail_item).toString() + "개의 Todo 가 삭제되었습니다."
+      alert("성공한 " + (success_item).toString() + "개의 Todo,\n" + "실패한 " + (fail_item).toString() + "개의 Todo 가 삭제되었습니다.\n\n"
         + " 호감도 " + (plus_score - minus_score).toString() + " 가 증가(감소)하였습니다.")
       this.setState({ todos: update_todos, MainScore: this.state.MainScore - minus_score }, this._storeData)
       this._checkScore()
@@ -332,7 +339,7 @@ export default class App extends React.Component {
           
           reverseTodo[index].iscomplete = !reverseTodo[index].iscomplete
           
-          alert("축하합니다! 호감도 +2  (리스트는 등록후 24시간 뒤에 자동 삭제됩니다) ");
+          alert("축하합니다! 호감도 +2 \n\n (리스트는 등록후 24시간 뒤에 자동 삭제됩니다) ");
           // Alert.alert(
           //   '오늘의 ToDo를 했나요?',
           //   '',
@@ -460,3 +467,5 @@ const styles = StyleSheet.create({
   },
 
 });
+
+
