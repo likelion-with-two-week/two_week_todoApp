@@ -12,7 +12,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.4",
+    "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -32,7 +32,7 @@
       "adaptiveIcon":{
         "backgroundColor": "#ffffff"
       },
-      "versionCode": 2
+      "versionCode": 3
     },
     "ios": {
       "supportsTablet": true

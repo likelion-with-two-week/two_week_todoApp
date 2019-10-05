@@ -28,7 +28,6 @@ export default class TodoListScreen extends React.Component {
                <SafeAreaView style={styles.list_to_addpage_box}>
                    <TouchableOpacity
                        onPress={() => {
-                           this.props.screenProps.addMethod
                            this.props.navigation.navigate('AddScreen')
                        }}>
                        {/* <Image source={require('../assets/흰색버튼.png')} style={styles.whitebuttom} resizeMode='contain'/> */}

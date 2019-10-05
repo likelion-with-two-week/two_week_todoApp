@@ -1,10 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text,  SafeAreaView,   TouchableOpacity,Dimensions } from 'react-native';
 import {  MaterialCommunityIcons, } from '@expo/vector-icons';
+import { withNavigation } from 'react-navigation'
 
 const { height, width } = Dimensions.get('window')
 
-export default class TodoItem extends React.Component {
+class TodoItem extends React.Component {
 
     render(){
         return (
@@ -20,14 +21,19 @@ export default class TodoItem extends React.Component {
                 </SafeAreaView>
 
                 <SafeAreaView style={styles.todoList_textBox}>
-                    {this.props.isComplete ? 
-                    <Text style={styles.todoItemText_complete}>
-                        {this.props.name}                    
-                    </Text>
-                    :
-                    <Text style={styles.todoItemText}>{this.props.name}</Text>
-                    }
-
+                    <TouchableOpacity 
+                        onPress={()=>{
+                            this.props.navigation.navigate('AddScreen',{"name":this.props.name,"check_id": this.props.check_id})
+                        }                            
+                        }>
+                        {this.props.isComplete ? 
+                            <Text style={styles.todoItemText_complete}>
+                                {this.props.name}                    
+                            </Text>
+                        :
+                            <Text style={styles.todoItemText}>{this.props.name}</Text>
+                        }
+                    </TouchableOpacity>
                 </SafeAreaView>
 
                 {this.props.isComplete?
@@ -93,3 +99,4 @@ const styles = StyleSheet.create({
     }
 
 })
+export default withNavigation(TodoItem);

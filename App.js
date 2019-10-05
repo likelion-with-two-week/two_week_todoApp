@@ -191,7 +191,7 @@ export default class App extends React.Component {
     for (const j of this.state.todos) {
       // console.log("여기도 안들어오나?")
       if (j.deadline + 64800000 <= temptime.getTime()) { // 18시간이 지난후 6시간 남았을때 64800000
-        if (j.noti_6h == false){
+        if (j.noti_6h === false && j.iscomplete === false){
 
           notiindex_6 = notichange_todo.findIndex((element) => { return element.deadline === j.deadline })
 
@@ -210,7 +210,7 @@ export default class App extends React.Component {
         }
         
       } else if (j.deadline + 43200000 <= temptime.getTime()) { // 12시간이 지난후 12시간 남았을때 43200000
-        if (j.noti_12h == false) {
+        if (j.noti_12h === false && j.iscomplete === false ) {
 
           notiindex_12 = notichange_todo.findIndex((element) => { return element.deadline === j.deadline })
 
@@ -242,19 +242,33 @@ export default class App extends React.Component {
   _changeText = (value) => {
     this.setState({ inputTodo:value})
   }
-
+  _edit_changeText = (value,title) =>{
+    this.setState({inputTodo:value})
+  }
   //입력된 Todo의 값을 State에 반영
   _saveTodo = () =>{
     const prevTodo = [...this.state.todos]
     if (prevTodo.length <= 2){
         if (this.state.inputTodo !== '') {
           const tempdate = new Date()
-          
+          if (parseInt(tempdate.getHours()) <10 ){
+            temphour = '0'+tempdate.getHours()
+          }
+          else{
+            temphour = tempdate.getHours()
+          }
+
+          if (parseInt(tempdate.getMinutes()) < 10) {
+            tempminutes = '0' + tempdate.getMinutes()
+          }
+          else {
+            tempminutes = tempdate.getMinutes()
+          }
           const newTodo = { title: this.state.inputTodo, 
                             iscomplete: false, 
                             deadline: tempdate.getTime(), 
-                            start_hour:tempdate.getHours(), 
-                            start_minutes : tempdate.getMinutes(),
+                            start_hour: temphour, 
+                            start_minutes: tempminutes,
                             noti_6h:false,
                             noti_12h:false,}
           this.setState({
@@ -273,6 +287,10 @@ export default class App extends React.Component {
       })
     }
    
+  }
+
+  _editTodo = () => {
+
   }
   _checkScore= () =>{
     if (this.state.MainScore >=75){
@@ -327,6 +345,7 @@ export default class App extends React.Component {
     
     <TodoItem 
       name={item.title}
+      check_id = {item.deadline}
       starthour={item.start_hour}
       startminutes = {item.start_minutes}
       isComplete = {item.iscomplete}
@@ -418,6 +437,8 @@ export default class App extends React.Component {
       alert('빈값없이 입력해주세요!')
     }
   }
+
+
   render(){
     // console.log(this.state.todos)
   
@@ -430,9 +451,9 @@ export default class App extends React.Component {
           screenProps={{
             listData: this.state.todos,
             renderMethod: this._makeTodoList,
-            addMethod: this._addMethod,
             displayvalue: this.state.inputTodo ,
             changemethod: this._changeText ,
+            edit_changemethod : this._changeText,
             savemethod: this._saveTodo ,
             selectImage : this._selectImage,
             mainImageUri : this.state.imageUri,
