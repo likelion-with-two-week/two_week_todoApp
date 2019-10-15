@@ -450,7 +450,7 @@ const styles = StyleSheet.create({
     mainbottomtext_container:{
         flexDirection:'row',
         // borderWidth:3,
-        justifyContent:'space-between',
+        justifyContent:'center',
         width:width*0.7,
 
     },
@@ -461,7 +461,9 @@ const styles = StyleSheet.create({
         fontFamily: 'DungGeunMo', 
         color:'#fff',
         fontWeight: '100',
+        marginRight: 5,
     },
+    
     mainbottom_righttext:{
         // borderWidth: 2,
         // borderColor: 'yellow',
@@ -469,6 +471,7 @@ const styles = StyleSheet.create({
         fontSize: width * 0.10,
         fontFamily: 'DungGeunMo', 
         color:'white',
+        marginLeft: 5,
     },
 
     firstpic_like:{

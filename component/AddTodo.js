@@ -22,29 +22,16 @@ const { height,width} = Dimensions.get('window')
             (   <View>
                 <View style={styles.add_todolist_container}>
                     <Text style={styles.add_todolist_lefttext}>> ToDo</Text>
-                    <Text style={styles.add_todolist_righttext}> Write</Text>
+                    <Text style={styles.add_todolist_righttext}> Edit</Text>
                 </View>
 
                 <SafeAreaView style={styles.input_and_icon}>
-                        {props.screenProps.displayvalue ? 
-                        (<TextInput
-                            placeholder={tempname}
-                            value={props.screenProps.displayvalue}
-                            onChangeText={props.screenProps.edit_changemethod}
-                            maxLength={30}
-                            style={styles.todo_inputBox}></TextInput>)
-                            :
                         <TextInput
-                            placeholder={tempname}
-                            value={tempname}
+                            value={props.screenProps.edit_todo_text}
                             onChangeText={props.screenProps.edit_changemethod}
                             maxLength={30}
                             style={styles.todo_inputBox}></TextInput>
-                         }
-
-                        
-
-
+                         
 
                     <TouchableOpacity
                         onPress={() => {

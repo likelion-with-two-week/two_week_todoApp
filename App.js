@@ -70,6 +70,7 @@ export default class App extends React.Component {
       imageUri: '',  //우리가 main 얼굴로 넣을 image를 선정한다
 
       inputTodo: '',
+      
       todos: [
 
       ],
@@ -242,8 +243,10 @@ export default class App extends React.Component {
   _changeText = (value) => {
     this.setState({ inputTodo:value})
   }
+  // MainScreen으로 같이 넘겨주고 만약 우리가 넘어오는 props가 있으면 그것을 받아서 우리의 edittodo로 넣어주도록 하자
   _edit_changeText = (value,title) =>{
-    this.setState({inputTodo:value})
+    console.log("체인지에서 실행되는 에딧",value)
+    this.setState({ editTodo:value})
   }
   //입력된 Todo의 값을 State에 반영
   _saveTodo = () =>{
@@ -313,7 +316,7 @@ export default class App extends React.Component {
     let update_todos = [...this.state.todos]
     
     for (const i of this.state.todos) {
-      if (i.deadline + 86400000 <= overchecktime.getTime()) { //24시간을 환산하면 86400000
+      if (i.deadline + 600000 <= overchecktime.getTime()) { //24시간을 환산하면 86400000
         if (i.iscomplete === true) {
           // console.log("얘는 성공한 애입니다", i)
           delete_success_index = update_todos.findIndex((element)=>{ return element.deadline === i.deadline})
@@ -453,7 +456,7 @@ export default class App extends React.Component {
             renderMethod: this._makeTodoList,
             displayvalue: this.state.inputTodo ,
             changemethod: this._changeText ,
-            edit_changemethod : this._changeText,
+            edit_changemethod : this._edit_changeText,
             savemethod: this._saveTodo ,
             selectImage : this._selectImage,
             mainImageUri : this.state.imageUri,
@@ -471,6 +474,7 @@ export default class App extends React.Component {
             Main_score : this.state.MainScore,
             random_flag: this.state.random_flag,
             changeScreen: this._checkScore,
+            edit_todo_text: this.editTodo,
           }}
             />
       </SafeAreaView>
